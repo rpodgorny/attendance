@@ -1,6 +1,6 @@
 <?php
 
-$sql = mysql_connect("localhost", "root", "mimosa");
+$sql = mysql_connect("localhost", "attendance", "attendance");
 mysql_select_db("attendance");
 
 
