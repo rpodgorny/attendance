@@ -90,6 +90,10 @@ th a:hover {
 	text-decoration: underline;
 }
 
+td a {
+	display: none;
+}
+
 tr.noworkday {
 	background-color: #e5e5e5;
 }
