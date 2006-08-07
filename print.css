@@ -1,0 +1,103 @@
+.authorization {
+	display: none;
+}
+
+.menu {
+	display: none;
+}
+
+.selection {
+	display: none;
+}
+
+body {
+	font-size: 9pt;
+	margin: 2pt;
+	padding: 0;
+}
+
+.error {
+	border-color: black;
+	color: red;
+}
+
+.maxwidth {
+	width: 100%;
+}
+
+.signature {
+	height: 50px;
+	width: 100px;
+}
+
+h1 {
+	margin: 0;
+	padding: 0;
+	float: right;
+	font-size: 16pt;
+}
+
+h2 {
+	margin: 0;
+	padding: 0;
+	float: left;
+	font-size: 16pt;
+}
+
+form { 
+	display: none;
+}
+
+p {
+	margin: 0;
+	padding: 0;
+}
+
+table {
+	margin: 4pt 4pt 0 0;
+	border-collapse: collapse;
+	float: left;
+}
+
+h2 + p + table {
+	border-collapse: collapse;
+	clear: both;
+	width: 100%;
+}
+
+td {
+	border-style: solid;	
+	border-width: 1pt;
+	padding: 0pt 5pt;
+	text-align: center;
+}
+
+th {
+	background-color: #888888;
+	border-color: black;
+	border-style: solid;	
+	border-width: 1pt;
+	color: white;
+	padding: 1pt;
+}
+
+th a {
+	color: white;
+	text-decoration: none;
+}
+
+th a:hover {
+	text-decoration: underline;
+}
+
+td a {
+	display: none;
+}
+
+tr.noworkday {
+	background-color: #e5e5e5;
+}
+
+tr.odd td {
+	background-color: #e5e5e5;
+}
