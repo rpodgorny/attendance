@@ -4,7 +4,9 @@
 
 if ($_GET["from_id"]) {
 	$name = db_get("employees", "name", $_GET["from_id"]);
+	$since = db_get("employees", "since", $_GET["from_id"]);
 	$active = db_get("employees", "active", $_GET["from_id"]);
+	$stravenky = db_get("employees", "stravenky", $_GET["from_id"]);
 }
 
 ?>
@@ -21,8 +23,18 @@ Jméno pracovníka:
 </p>
 
 <p>
-Aktivní (zatím nefunguje):
-<input type="checkbox" name="active" value="<?php echo $active; ?>"/>
+Datum nástupu:
+<input type="text" name="since" value="<?php echo $since; ?>"/>
+</p>
+
+<p>
+Aktivní:
+<input type="checkbox" name="active" value="1" <?php if ($active) echo "checked"?>/>
+</p>
+
+<p>
+Počítat stravenky:
+<input type="checkbox" name="stravenky" value="1" <?php if ($stravenky) echo "checked"?>/>
 </p>
 
 <p>
