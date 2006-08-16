@@ -11,6 +11,7 @@ CREATE TABLE employees(
 	plusminus TIME,
 	dovolene INT,
 	active BOOL,
+	stravenky BOOL,
 	PRIMARY KEY(id)
 );
 
