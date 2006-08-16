@@ -38,7 +38,7 @@ Výdej za měsíc
 
 $total_vydat = 0;
 
-$employees = db_get_many("employees", "id", "active=1", "name");
+$employees = db_get_many("employees", "id", "active=1 AND stravenky=1", "name");
 
 for ($i = 0; $i < count($employees); $i++) {
 	$emp = $employees[$i];
