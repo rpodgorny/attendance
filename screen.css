@@ -14,13 +14,18 @@ form {
 	//width: 99,9%;
 	border-color: #AAA #666 #666 #AAA;
 	background: #CCC;
+	height: 25px;
 }
 
-
-.authorization p{
+.authorization p {
 	margin: 0;
 	padding: 2px;
 	text-align: right;
+}
+
+.content p a {
+	float: left;
+	clear: both;
 }
 
 .maxwidth {
