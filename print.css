@@ -59,7 +59,7 @@ table {
 	float: left;
 }
 
-h2 + p + table {
+h2 + table {
 	border-collapse: collapse;
 	clear: both;
 	width: 100%;
