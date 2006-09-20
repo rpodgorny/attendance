@@ -20,7 +20,7 @@ Stravenky
 </h1>
 
 <h2>
-Výdej za měsíc
+Výdej stravenek a odečet ze mzdy za měsíc
 <?php echo monthname($_GET["month"]); ?> <? echo $_GET["year"] ?>
 </h2>
 
@@ -64,8 +64,6 @@ for ($i = 0; $i < count($employees); $i++) {
 	echo "</tr>";
 }
 
-// Prodavaj se v paklech po dvaceti
-while ($total_vydat % 20) $total_vydat++;
 
 ?>
 </table>
@@ -76,20 +74,8 @@ while ($total_vydat % 20) $total_vydat++;
 		<td><?php echo $total_vydat; ?></td>
 	</tr>
 	<tr>
-		<th>cena za stravenky (po 60,- Kc)</th>
-		<td><?php echo $total_vydat*60; ?></td>
-	</tr>
-	<tr>
-		<th>provize 2.8%</th>
-		<td><?php echo $total_vydat*60*0.028; ?></td>
-	</tr>
-	<tr>
-		<th>DPH z provize (19%)</th>
-		<td><?php echo $total_vydat*60*0.028*0.19; ?></td>
-	</tr>
-	<tr>
-		<th>CELKEM</th>
-		<td><?php echo $total_vydat*60 * (1 + 0.028 + 0.028*0.19); ?></td>
+		<th>příspěvek zaměstnanců</th>
+		<td><?php echo $total_vydat*60*0.45; ?></td>
 	</tr>
 </table>
 </div>
