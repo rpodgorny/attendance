@@ -108,6 +108,11 @@ h2 {
 	font-size: 16pt;
 }
 
+h3 {
+	margin: 0;
+	padding-bottom: 10px;
+}
+
 table {
 	border-collapse: collapse;
 	margin-bottom: 10px;
