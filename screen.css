@@ -61,6 +61,15 @@ form {
 	color: black;
 }
 
+.menu li a:hover {
+	text-decoration: none;
+	color: blue;
+}
+.menu li a:active {
+	text-decoration: none;
+	color: red;
+}
+
 .error {
 	border-color: black;
 	color: red;
