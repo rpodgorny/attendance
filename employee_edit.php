@@ -8,11 +8,13 @@ if ($_GET["active"] != 0) $_GET["active"] = 1;
 if ($_GET["stravenky"] != 0) $_GET["stravenky"] = 1;
 
 $res = mysql_query("
-	REPLACE INTO employees(id,name,since,active,stravenky)
+	REPLACE INTO employees(id,name,since,plusminus,dovolene,active,stravenky)
 	VALUES (
 		'".$_GET["id"]."',"
 		."'".$_GET["name"]."',"
 		."'".$_GET["since"]."',"
+		."'".$_GET["plusminus"]."',"
+		."'".$_GET["dovolene"]."',"
 		."'".$_GET["active"]."',"
 		."'".$_GET["stravenky"]."')
 ;");

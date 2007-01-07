@@ -5,6 +5,8 @@
 if ($_GET["from_id"]) {
 	$name = db_get("employees", "name", $_GET["from_id"]);
 	$since = db_get("employees", "since", $_GET["from_id"]);
+	$plusminus = db_get("employees", "plusminus", $_GET["from_id"]);
+	$dovolene = db_get("employees", "dovolene", $_GET["from_id"]);
 	$active = db_get("employees", "active", $_GET["from_id"]);
 	$stravenky = db_get("employees", "stravenky", $_GET["from_id"]);
 }
@@ -25,6 +27,16 @@ Jméno pracovníka:
 <p>
 Datum nástupu:
 <input type="text" name="since" value="<?php echo $since; ?>"/>
+</p>
+
+<p>
+Počáteční plusminus:
+<input type="text" name="plusminus" value="<?php echo $plusminus; ?>"/>
+</p>
+
+<p>
+Počáteční dovolená:
+<input type="text" name="dovolene" value="<?php echo $dovolene; ?>"/>
 </p>
 
 <p>
