@@ -61,6 +61,15 @@ form {
 	color: black;
 }
 
+.menu li a:hover {
+	text-decoration: none;
+	color: blue;
+}
+.menu li a:active {
+	text-decoration: none;
+	color: red;
+}
+
 .error {
 	border-color: black;
 	color: red;
@@ -97,6 +106,11 @@ h2 {
 	padding: 0;
 	float: left;
 	font-size: 16pt;
+}
+
+h3 {
+	margin: 0;
+	padding-bottom: 10px;
 }
 
 table {
