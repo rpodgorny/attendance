@@ -1,0 +1,11 @@
+kompletne eliminovat obed-prichod
+kompletne eliminovat cestinu
+prejmenovat actions na events
+vacancies -> holidays
+days -> alldayevents
+dovolene -> ???
+pridat formulare na praci s "dovolene"
+doplnit do formularu "employee" nove polozky
+stravenky na pristi mesic
+predelat algo: if neni diety_kc => stravenky = 1 (zrusit pricitani a odecitani)
+zrusit db_get() a db_get_condition() a prevest volani na db_get_many()
