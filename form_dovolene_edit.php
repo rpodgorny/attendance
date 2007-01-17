@@ -10,6 +10,7 @@ if ($_GET["from_id"]) {
 	$year = db_get("dovolene", "year", $_GET["from_id"]);
 	$employee = db_get("dovolene", "employee", $_GET["from_id"]);
 	$days = db_get("dovolene", "days", $_GET["from_id"]);
+	$days_lastyear = db_get("dovolene", "days_lastyear", $_GET["from_id"]);
 } else {
 	if (!strlen($year)) $year = date("Y");
 }
@@ -57,6 +58,11 @@ while ($row = mysql_fetch_array($res)) {
 <p>
 Počet dnů:
 <input type="text" name="days" value="<?php echo $days; ?>"/>
+</p>
+
+<p>
+Přenos dovolené z minulého roku (dnů):
+<input type="text" name="days_lastyear" value="<?php echo $days_lastyear; ?>"/>
 </p>
 
 <p>

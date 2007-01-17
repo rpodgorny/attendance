@@ -26,10 +26,10 @@ if (auth()) {
 <?php
 
 print_table("dovolene,employees",
-	"dovolene.id,year,employees.name,days",
+	"dovolene.id,year,employees.name,days,days_lastyear",
 	"dovolene.employee=employees.id",
 	"year,employees.name",
-	"id,rok,zaměstnanec,dnů",
+	"id,rok,zaměstnanec,dnů,dnů z minulého roku",
 	auth()? "dovolene" : "");
 
 ?>
