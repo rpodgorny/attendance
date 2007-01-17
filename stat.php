@@ -53,7 +53,8 @@ while ($y*12+$m < $_GET["year"]*12+$_GET["month"]) {
 
 $cur_tots = month_totals($_GET["year"], $_GET["month"], $_GET["employee"], true);
 
-$dovolena_narok = db_get_condition("dovolene", "days", "employee=".$_GET["employee"]);
+$dovolena_narok = db_get_condition("dovolene", "days", "employee=".$_GET["employee"]." AND year='".$_GET["year"]."'");
+$dovolena_zminula = db_get_condition("dovolene", "days_lastyear", "employee=".$_GET["employee"]." AND year='".$_GET["year"]."'");
 
 $cur_tots_noemployee = month_totals($_GET["year"], $_GET["month"], 0, false);
 
@@ -95,7 +96,11 @@ $cur_tots_noemployee = month_totals($_GET["year"], $_GET["month"], 0, false);
 
 <table>
 	<tr>
-		<th>nárok na dovolenou za tento rok</th>
+		<th>přenos dovolené z minulého roku</th>
+		<td><?php echo $dovolena_zminula; ?></td>
+	</tr>
+	<tr>
+		<th>nárok na dovolenou na tento rok</th>
 		<td><?php echo $dovolena_narok; ?></td>
 	</tr>
 	<tr>
@@ -104,7 +109,7 @@ $cur_tots_noemployee = month_totals($_GET["year"], $_GET["month"], 0, false);
 	</tr>
 	<tr>
 		<th>zbývá dnů dovolené</th>
-		<td><?php echo $dovolena_narok - $prev_tots["days_dovolena"] - $cur_tots["days_dovolena"]; ?></td>
+		<td><?php echo $dovolena_narok + $dovolena_zminula - $prev_tots["days_dovolena"] - $cur_tots["days_dovolena"]; ?></td>
 	</tr>
 </table>
 

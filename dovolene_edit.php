@@ -5,12 +5,13 @@
 if (!$_GET["id"]) $_GET["id"] = find_unused_id("dovolene");
 
 $res = mysql_query("
-	REPLACE INTO dovolene(id, year, employee, days)
+	REPLACE INTO dovolene(id, year, employee, days, days_lastyear)
 	VALUES (
 		'".$_GET["id"]."',"
 		."'".$_GET["year"]."',"
 		."'".$_GET["employee"]."',"
-		."'".$_GET["days"]."');");
+		."'".$_GET["days"]."',"
+		."'".$_GET["days_lastyear"]."');");
 
 ?>
 

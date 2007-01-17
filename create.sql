@@ -70,6 +70,7 @@ CREATE TABLE dovolene(
 	year INT,
 	employee INT,
 	days INT,
+	days_lastyear INT,
 	PRIMARY KEY(id)
 );
 

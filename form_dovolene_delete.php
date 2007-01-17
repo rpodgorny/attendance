@@ -6,10 +6,10 @@
 <?php
 
 print_table("dovolene,employees",
-	"dovolene.id,dovolene.year,employees.name,dovolene.days",
+	"dovolene.id,dovolene.year,employees.name,dovolene.days,dovolene.days_lastyear",
 	"dovolene.employee=employees.id AND dovolene.id='" . $_GET["id"] . "'",
 	"",
-	"id,year,employee,days",
+	"id,year,employee,days,days_lastyear",
 	"");
 
 ?>
