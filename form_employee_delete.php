@@ -6,10 +6,10 @@
 <?php
 
 print_table("employees",
-	"id,name,since,plusminus,dovolene,active",
+	"id,name,since,plusminus,dovolene,uvazek,active",
 	"id='" . $_GET["id"] . "'",
 	"name",
-	"id,name,since,plusminus,dovolene,active",
+	"id,name,since,plusminus,dovolene,uvazek,active",
 	"");
 
 ?>

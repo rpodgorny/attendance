@@ -27,10 +27,10 @@ if (auth()) {
 <?php
 
 print_table("employees",
-	"id,name,since,plusminus,dovolene,active,stravenky",
+	"id,name,since,plusminus,dovolene,active,stravenky,uvazek",
 	"",
 	"name",
-	"id,jméno,založen,+/-,dovolené,aktivní,stravenky",
+	"id,jméno,založen,+/-,dovolené,aktivní,stravenky,uvazek",
 	auth()? "employee" : "");
 
 ?>
