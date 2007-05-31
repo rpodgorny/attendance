@@ -215,7 +215,7 @@ function day_totals($year, $month, $day, $employee) {
 	&& $total["status_type"] != "nemoc"
 	&& $total["status_type"] != "dovolena"
 	&& $total["status_type"] != "nahrada") {
-		$total["plusminus"] -= 8*60*60;
+		$total["plusminus"] -= db_get("employees", "uvazek", $employee)*60*60;
 
 		if (!$total["diety_id"] && $total["diety_kc"] == 0)
 			$total["stravenky"] += 1;

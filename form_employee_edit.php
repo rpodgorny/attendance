@@ -9,6 +9,7 @@ if ($_GET["from_id"]) {
 	$dovolene = db_get("employees", "dovolene", $_GET["from_id"]);
 	$active = db_get("employees", "active", $_GET["from_id"]);
 	$stravenky = db_get("employees", "stravenky", $_GET["from_id"]);
+	$uvazek = db_get("employees", "uvazek", $_GET["from_id"]);
 }
 
 ?>
@@ -47,6 +48,11 @@ Aktivní:
 <p>
 Počítat stravenky:
 <input type="checkbox" name="stravenky" value="1" <?php if ($stravenky) echo "checked"?>/>
+</p>
+
+<p>
+Uvazek:
+<input type="text" name="uvazek" value="<?php echo $uvazek; ?>"/>
 </p>
 
 <p>
