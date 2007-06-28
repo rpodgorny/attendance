@@ -238,6 +238,8 @@ function month_totals($year, $month, $employee, $print) {
 	$total["diety_kc"] = 0;
 	$total["error"] = false;
 
+	$ratio = db_get("employees", "uvazek", $employee) / 8.0;
+
 	if ($print) {
 		echo "<table class=\"maxwidth\">";
 		echo "<tr>";
@@ -318,7 +320,7 @@ function month_totals($year, $month, $employee, $print) {
 			echo "</td>";
 
 			echo "<td>";
-			echo $dt["diety_kc"] . "/" . $dt["stravenky"];
+			echo $dt["diety_kc"] . "/" . $dt["stravenky"] * $ratio;
 			if (auth()) {
 				if ($dt["diety_id"]) {
 					echo " <a href=\"form_diety_edit.php?from_id=" . $dt["diety_id"] . "&id=" . $dt["diety_id"] . "\">(*)</a>";
