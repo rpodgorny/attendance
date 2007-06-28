@@ -15,6 +15,8 @@ Výkaz odpracované doby
 <?php
 $employeename = db_get("employees", "name", $_GET["employee"]);
 echo $employeename;
+
+$ratio = db_get("employees", "uvazek", $_GET["employee"]) / 8.0;
 ?>
  -
 <?php echo monthname($_GET["month"]) . " " . $_GET["year"]; ?>
@@ -116,16 +118,15 @@ $cur_tots_noemployee = month_totals($_GET["year"], $_GET["month"], 0, false);
 <table>
 	<tr>
 		<th>nárok na stravenky tento měsíc</th>
-		<td><?php echo $cur_tots_noemployee["stravenky"]; ?></td>
+		<td><?php echo $cur_tots_noemployee["stravenky"] * $ratio; ?></td>
 	</tr>
 	<tr>
 		<th>odečet stravenek tento měsíc</th>
-		<td><?php echo $cur_tots_noemployee["stravenky"] -  $cur_tots["stravenky"]; ?></td>
+		<td><?php echo ($cur_tots_noemployee["stravenky"] - $cur_tots["stravenky"]) * $ratio; ?></td>
 	</tr>
 	<tr>
 		<th>vydat stravenek tento měsíc</th>
-		<td><?php echo $cur_tots["stravenky"]; ?></td>
-
+		<td><?php echo $cur_tots["stravenky"] * $ratio; ?></td>
 	</tr>
 </table>
 </div>
