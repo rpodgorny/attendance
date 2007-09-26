@@ -24,7 +24,14 @@ $ratio = db_get("employees", "uvazek", $_GET["employee"]) / 8.0;
 
 <?php
 
-$since = db_get("employees", "since", $_GET["employee"]);
+$res = mysql_query("
+	SELECT MIN(since) AS since
+	FROM uvazky
+	WHERE employee='" . $_GET["employee"] . "'
+;");
+$row = mysql_fetch_array($res);
+$since = $row["since"];
+
 $date = getdate(strtotime($since));
 $y = $date["year"]; $m = $date["mon"];
 
@@ -117,16 +124,8 @@ $cur_tots_noemployee = month_totals($_GET["year"], $_GET["month"], 0, false);
 
 <table>
 	<tr>
-		<th>nárok na stravenky tento měsíc</th>
-		<td><?php echo $cur_tots_noemployee["stravenky"] * $ratio; ?></td>
-	</tr>
-	<tr>
-		<th>odečet stravenek tento měsíc</th>
-		<td><?php echo ($cur_tots_noemployee["stravenky"] - $cur_tots["stravenky"]) * $ratio; ?></td>
-	</tr>
-	<tr>
 		<th>vydat stravenek tento měsíc</th>
-		<td><?php echo $cur_tots["stravenky"] * $ratio; ?></td>
+		<td><?php echo $cur_tots["stravenky"]; ?></td>
 	</tr>
 </table>
 </div>

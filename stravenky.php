@@ -3,13 +3,6 @@
 <?php require_once("datetime.php"); ?>
 <?php require_once("totals.php"); ?>
 
-<?php
-
-$cur_tots_noemployee = month_totals($_GET["year"], $_GET["month"], 0, false);
-
-?>
-
-
 <?php include("header.htm"); ?>
 
 <?php auth_header(); ?>
@@ -27,8 +20,6 @@ Výdej stravenek a odečet ze mzdy za měsíc
 <table class="maxwidth">
 <tr>
 	<th>jméno</th>
-	<th>nárok stravenek</th>
-	<th>odpočet stravenek</th>
 	<th>vydat stravenek</th>
 	<th>celková hodnota (60Kč/ks)</th>
 	<th>příspěvek zaměstnance (45%)</th>
@@ -44,20 +35,15 @@ for ($i = 0; $i < count($employees); $i++) {
 	$emp = $employees[$i];
 
 	$name = db_get("employees", "name", $emp);
-	$ratio = db_get("employees", "uvazek", $emp) / 8.0;
 	$cur_tots = month_totals($_GET["year"], $_GET["month"], $emp, false);
 
-
-	$odpocet = ($cur_tots_noemployee["stravenky"] - $cur_tots["stravenky"]) * $ratio;
-	$vydat = $cur_tots["stravenky"] * $ratio;
+	$vydat = $cur_tots["stravenky"];
 
 	$total_vydat += $vydat;
 
 
 	echo "<tr>";
 	echo "<td>" . $name . "</td>";
-	echo "<td>" . $cur_tots_noemployee["stravenky"] * $ratio . "</td>";
-	echo "<td>" . $odpocet . "</td>";
 	echo "<td>" . $vydat . "</td>";
 	echo "<td>" . ceil(($vydat*60)) . "</td>";
 	echo "<td>" . ceil(($vydat*60*0.45)) . "</td>";

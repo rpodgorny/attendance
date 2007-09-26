@@ -209,16 +209,29 @@ function day_totals($year, $month, $day, $employee) {
 	}
 	mysql_free_result($res);
 
+	$res = mysql_query("
+		SELECT uvazek
+		FROM uvazky
+		WHERE
+			employee='" . $employee . "'
+			AND since<='" . $str_date . "'
+			AND till>='" . $str_date . "'
+	;");
+	$row = mysql_fetch_array($res);
+	$uvazek = $row["uvazek"];
+
+	$ratio = $uvazek / 8.0;
 
 	$total["plusminus"] = $total["odpracovano"];
 	if (is_workday($year, $month, $day)
 	&& $total["status_type"] != "nemoc"
 	&& $total["status_type"] != "dovolena"
 	&& $total["status_type"] != "nahrada") {
-		$total["plusminus"] -= db_get("employees", "uvazek", $employee)*60*60;
+		//$total["plusminus"] -= db_get("employees", "uvazek", $employee)*60*60;
+		$total["plusminus"] -= $uvazek*60*60;
 
 		if (!$total["diety_id"] && $total["diety_kc"] == 0)
-			$total["stravenky"] += 1;
+			$total["stravenky"] += $ratio;
 	}
 
 	// We don't want negative plusminus for days in the future
@@ -237,8 +250,6 @@ function month_totals($year, $month, $employee, $print) {
 	$total["stravenky"] = 0;
 	$total["diety_kc"] = 0;
 	$total["error"] = false;
-
-	$ratio = db_get("employees", "uvazek", $employee) / 8.0;
 
 	if ($print) {
 		echo "<table class=\"maxwidth\">";
@@ -320,7 +331,7 @@ function month_totals($year, $month, $employee, $print) {
 			echo "</td>";
 
 			echo "<td>";
-			echo $dt["diety_kc"] . "/" . $dt["stravenky"] * $ratio;
+			echo $dt["diety_kc"] . "/" . $dt["stravenky"];
 			if (auth()) {
 				if ($dt["diety_id"]) {
 					echo " <a href=\"form_diety_edit.php?from_id=" . $dt["diety_id"] . "&id=" . $dt["diety_id"] . "\">(*)</a>";
