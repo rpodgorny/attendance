@@ -6,10 +6,10 @@
 <?php
 
 print_table("employees",
-	"id,name,since,plusminus,dovolene,uvazek,active",
+	"id,name,plusminus,dovolene,active",
 	"id='" . $_GET["id"] . "'",
 	"name",
-	"id,name,since,plusminus,dovolene,uvazek,active",
+	"id,name,plusminus,dovolene,active",
 	"");
 
 ?>
@@ -69,6 +69,10 @@ print_table("overtimes,employees",
 
 <p>
 TODO: vypis z tabulky "dovolene"
+</p>
+
+<p>
+TODO: vypis z tabulky "uvazky"
 </p>
 
 <p>

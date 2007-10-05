@@ -15,8 +15,6 @@ Výkaz odpracované doby
 <?php
 $employeename = db_get("employees", "name", $_GET["employee"]);
 echo $employeename;
-
-$ratio = db_get("employees", "uvazek", $_GET["employee"]) / 8.0;
 ?>
  -
 <?php echo monthname($_GET["month"]) . " " . $_GET["year"]; ?>

@@ -8,16 +8,21 @@ if ($_GET["active"] != 0) $_GET["active"] = 1;
 if ($_GET["stravenky"] != 0) $_GET["stravenky"] = 1;
 
 $res = mysql_query("
-	REPLACE INTO employees(id,name,since,plusminus,dovolene,active,stravenky,uvazek)
-	VALUES (
-		'".$_GET["id"]."',"
-		."'".$_GET["name"]."',"
-		."'".$_GET["since"]."',"
-		."'".$_GET["plusminus"]."',"
-		."'".$_GET["dovolene"]."',"
-		."'".$_GET["active"]."',"
-		."'".$_GET["stravenky"]."',"
-		."'".$_GET["uvazek"]."')
+	INSERT INTO employees
+	SET
+		id='".$_GET["id"]."',"
+		."name='".$_GET["name"]."',"
+		."plusminus='".$_GET["plusminus"]."',"
+		."dovolene='".$_GET["dovolene"]."',"
+		."active='".$_GET["active"]."',"
+		."stravenky='".$_GET["stravenky"]."'
+	ON DUPLICATE KEY UPDATE
+		id='".$_GET["id"]."',"
+		."name='".$_GET["name"]."',"
+		."plusminus='".$_GET["plusminus"]."',"
+		."dovolene='".$_GET["dovolene"]."',"
+		."active='".$_GET["active"]."',"
+		."stravenky='".$_GET["stravenky"]."'
 ;");
 
 ?>

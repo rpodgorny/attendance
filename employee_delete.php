@@ -5,6 +5,7 @@
 $res = mysql_query("DELETE FROM employees WHERE id='" . $_GET["id"] . "';");
 $res = mysql_query("DELETE FROM actions WHERE employee='" . $_GET["id"] . "';");
 $res = mysql_query("DELETE FROM overtimes WHERE employee='" . $_GET["id"] . "';");
+$res = mysql_query("DELETE FROM uvazky WHERE employee='" . $_GET["id"] . "';");
 $res = mysql_query("DELETE FROM days WHERE employee='" . $_GET["id"] . "';");
 $res = mysql_query("DELETE FROM comments WHERE employee='" . $_GET["id"] . "';");
 
