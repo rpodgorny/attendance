@@ -28,7 +28,7 @@ if (auth()) {
 print_table("diety,employees",
 	"diety.id,date,employees.name,amount",
 	"diety.employee=employees.id",
-	"date",
+	"date desc",
 	"id,datum,zaměstnanec,částka",
 	auth()? "diety" : "");
 

@@ -37,7 +37,7 @@ if (strlen($filter)) $filter = " AND " . $filter;
 print_table("actions,employees",
 	"actions.id,date,time,employees.name,type",
 	"actions.employee=employees.id" . $filter,
-	"date,time",
+	"date desc,time desc",
 	"id,datum,čas,zaměstnanec,typ",
 	auth()? "action" : "");
 

@@ -28,7 +28,7 @@ if (auth()) {
 print_table("comments,employees",
 	"comments.id,date,employees.name,text",
 	"comments.employee=employees.id",
-	"date",
+	"date desc",
 	"id,datum,zaměstnanec,poznámka",
 	auth()? "comment" : "");
 
