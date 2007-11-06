@@ -28,7 +28,7 @@ if (auth()) {
 print_table("overtimes,employees",
 	"overtimes.id,date,employees.name,time",
 	"overtimes.employee=employees.id",
-	"date",
+	"date desc",
 	"id,datum,zaměstnanec,délka",
 	auth()? "overtime" : "");
 
