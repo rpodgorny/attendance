@@ -25,7 +25,13 @@ if (auth()) {
 
 <?php
 
-if (strlen($_GET["employee"])) $filter .= "employee='" . $_GET["employee"] . "'";
+if (strlen($_GET["employee"])) {
+	$filter .= "employee='" . $_GET["employee"] . "'";
+	$orderby = "date,time";
+} else {
+	$orderby = "date desc, time desc";
+}
+
 if (strlen($_GET["date"])) {
 	if (strlen($filter)) $filter .= " AND ";
 	$filter .= "date='" . $_GET["date"] . "'";
@@ -37,7 +43,7 @@ if (strlen($filter)) $filter = " AND " . $filter;
 print_table("actions,employees",
 	"actions.id,date,time,employees.name,type",
 	"actions.employee=employees.id" . $filter,
-	"date desc,time desc",
+	$orderby,
 	"id,datum,čas,zaměstnanec,typ",
 	auth()? "action" : "");
 
