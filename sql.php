@@ -87,7 +87,7 @@ function print_table($table, $columns, $condition, $order, $labels, $link) {
 	                echo "&nbsp;";
 	                echo "<a href=\"form_" . $link . "_delete.php?id=" . $row["id"] . "\">(-)</a>";
 	                echo "&nbsp;";
-	                echo "<a href=\"form_" . $link . "_edit.php?from_id=" . $row["id"] . "\">kopírovat</a>";
+	                echo "<a href=\"form_" . $link . "_edit.php?from_id=" . $row["id"] . "\">(+)</a>";
         	        echo "</td>";
 		}
 		echo "\n";
