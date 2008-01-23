@@ -8,6 +8,11 @@ $_SESSION["password"] = $_POST["password"];
 
 <?php include("header.htm"); ?>
 
+<script language="javascript"><!--
+history.back()
+//-->
+</script>
+
 <p>
 Přihlášen
 </p>
