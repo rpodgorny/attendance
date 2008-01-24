@@ -17,4 +17,9 @@ else
 
 ?>
 
+<script language="javascript"><!--
+history.go(-2)
+//-->
+</script>
+
 <?php include("footer.htm"); ?>
