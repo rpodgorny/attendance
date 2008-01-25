@@ -1,4 +1,5 @@
 <?php require_once("sql.php"); ?>
+<?php require_once("goto.php"); ?>
 
 <?php
 
@@ -10,16 +11,14 @@ $res = mysql_query("DELETE FROM actions WHERE id='" . $_GET["id"] . "';");
 
 <?php
 
-if ($res)
+if ($res) {
 	echo "V pořádku.";
-else
+
+	handle_goto_body($_GET["goto"]);
+} else {
 	echo "CHYBA!!!";
+}
 
 ?>
-
-<script language="javascript"><!--
-history.go(-2)
-//-->
-</script>
 
 <?php include("footer.htm"); ?>
