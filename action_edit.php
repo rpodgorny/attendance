@@ -40,7 +40,7 @@ $res = mysql_query("
 
 <?php
 
-if ($res)
+if ($res) {
 	echo "V pořádku.";
 
 	if (strlen($_GET["goto"]) && strpos($_GET["goto"], "-") === 0) {
@@ -48,8 +48,9 @@ if ($res)
 		echo "history.go(" . $_GET["goto"] . ")";
 		echo "//--></script>";
 	}
-else
+} else {
 	echo "CHYBA!!!";
+}
 
 ?>
 
