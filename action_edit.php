@@ -21,17 +21,19 @@ $res = mysql_query("
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="cs" xml:lang="cs">
 <head>
-        <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-        <title>
-                Docházkový systém
-        </title>
-        <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="common.css" />
-        <link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="screen.css" />
-        <meta name="Description" content="Docházkový systém" />
-        <meta name="Keywords" content="" />
-        <meta name="Author" content="Pavel Podgorný; Radek Podgorný" />
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Docházkový systém</title>
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="common.css" />
+	<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="screen.css" />
+	<meta name="Description" content="Docházkový systém" />
+	<meta name="Keywords" content="" />
+	<meta name="Author" content="Pavel Podgorný; Radek Podgorný" />
 
-	<?php if (strlen($_GET["goto"]) && $res) echo "<meta http-equiv=\"refresh\" content=\"0; url=" . $_GET["goto"] . "\">"; ?>
+	<?php
+		if (strlen($_GET["goto"]) && strpos($_GET["goto"], "-") !== 0 && $res) {
+			echo "<meta http-equiv=\"refresh\" content=\"0; url=" . $_GET["goto"] . "\">";
+		}
+	?>
 </head>
 
 <body>
@@ -40,14 +42,15 @@ $res = mysql_query("
 
 if ($res)
 	echo "V pořádku.";
+
+	if (strlen($_GET["goto"]) && strpos($_GET["goto"], "-") === 0) {
+		echo "<script language=\"javascript\"><!--";
+		echo "history.go(" . $_GET["goto"] . ")";
+		echo "//--></script>";
+	}
 else
 	echo "CHYBA!!!";
 
 ?>
-
-<script language="javascript"><!--
-history.go(-2)
-//-->
-</script>
 
 <?php include("footer.htm"); ?>
