@@ -21,6 +21,8 @@ if ($_GET["from_id"]) {
 
 <form action="comment_edit.php" method="GET">
 
+<input type="hidden" name="goto" value="-2">
+
 <input type="hidden" name="id" value="<?php echo $_GET["id"]; ?>">
 
 <p>

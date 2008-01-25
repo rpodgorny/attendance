@@ -1,4 +1,5 @@
 <?php require_once("sql.php"); ?>
+<?php require_once("goto.php"); ?>
 
 <?php
 
@@ -29,11 +30,7 @@ $res = mysql_query("
 	<meta name="Keywords" content="" />
 	<meta name="Author" content="Pavel Podgorný; Radek Podgorný" />
 
-	<?php
-		if (strlen($_GET["goto"]) && strpos($_GET["goto"], "-") !== 0 && $res) {
-			echo "<meta http-equiv=\"refresh\" content=\"0; url=" . $_GET["goto"] . "\">";
-		}
-	?>
+	<?php if ($res) handle_goto_head($_GET["goto"]); ?>
 </head>
 
 <body>
@@ -43,11 +40,7 @@ $res = mysql_query("
 if ($res) {
 	echo "V pořádku.";
 
-	if (strlen($_GET["goto"]) && strpos($_GET["goto"], "-") === 0) {
-		echo "<script language=\"javascript\"><!--";
-		echo "history.go(" . $_GET["goto"] . ")";
-		echo "//--></script>";
-	}
+	handle_goto_body($_GET["goto"]);
 } else {
 	echo "CHYBA!!!";
 }
