@@ -7,6 +7,13 @@
 
 <?php auth_header(); ?>
 
+<?php
+	$hodnota_stravenky = 60;
+	if ($_GET["year"] > 2008 || ($_GET["year"] == 2008 && $_GET["month"] >= 12)) {
+		$hodnota_stravenky = 70;
+	}
+?>
+
 <div class="content">
 <h1>
 Stravenky
@@ -21,7 +28,7 @@ Výdej stravenek a odečet ze mzdy za měsíc
 <tr>
 	<th>jméno</th>
 	<th>vydat stravenek</th>
-	<th>celková hodnota (60Kč/ks)</th>
+	<th>celková hodnota (<?php echo $hodnota_stravenky; ?>Kč/ks)</th>
 	<th>příspěvek zaměstnance (45%)</th>
 	<th>převzal</th>
 </tr>
@@ -45,8 +52,8 @@ for ($i = 0; $i < count($employees); $i++) {
 	echo "<tr>";
 	echo "<td>" . $name . "</td>";
 	echo "<td>" . $vydat . "</td>";
-	echo "<td>" . ceil(($vydat*60)) . "</td>";
-	echo "<td>" . ceil(($vydat*60*0.45)) . "</td>";
+	echo "<td>" . ceil(($vydat*$hodnota_stravenky)) . "</td>";
+	echo "<td>" . ceil(($vydat*$hodnota_stravenky*0.45)) . "</td>";
 	echo "<td><div class=\"signature\"></div></td>";
 	echo "</tr>";
 }
@@ -62,7 +69,7 @@ for ($i = 0; $i < count($employees); $i++) {
 	</tr>
 	<tr>
 		<th>příspěvek zaměstnanců</th>
-		<td><?php echo ceil($total_vydat*60*0.45); ?></td>
+		<td><?php echo ceil($total_vydat*$hodnota_stravenky*0.45); ?></td>
 	</tr>
 </table>
 </div>
