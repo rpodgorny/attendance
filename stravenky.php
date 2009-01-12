@@ -45,15 +45,18 @@ for ($i = 0; $i < count($employees); $i++) {
 	$cur_tots = month_totals($_GET["year"], $_GET["month"], $emp, false);
 
 	$vydat = $cur_tots["stravenky"];
+	$hodnota = ceil(($vydat*$hodnota_stravenky)); 
+	$prispevek = ceil(($vydat*$hodnota_stravenky*0.45)); 
 
 	$total_vydat += $vydat;
+	$total_prispevek += $prispevek;
 
 
 	echo "<tr>";
 	echo "<td>" . $name . "</td>";
 	echo "<td>" . $vydat . "</td>";
-	echo "<td>" . ceil(($vydat*$hodnota_stravenky)) . "</td>";
-	echo "<td>" . ceil(($vydat*$hodnota_stravenky*0.45)) . "</td>";
+	echo "<td>" . $hodnota . "</td>";
+	echo "<td>" . $prispevek . "</td>";
 	echo "<td><div class=\"signature\"></div></td>";
 	echo "</tr>";
 }
@@ -69,7 +72,7 @@ for ($i = 0; $i < count($employees); $i++) {
 	</tr>
 	<tr>
 		<th>příspěvek zaměstnanců</th>
-		<td><?php echo ceil($total_vydat*$hodnota_stravenky*0.45); ?></td>
+		<td><?php echo $total_prispevek; ?></td>
 	</tr>
 </table>
 </div>
