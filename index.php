@@ -28,12 +28,34 @@ $res = mysql_query("
 ");
 
 while ($row = mysql_fetch_array($res)) {
+	$res2 = mysql_query("
+		select type
+		from actions
+		where employee=" . $row["id"] . "
+		order by date desc,time desc limit 1;
+	");
+	$row2 = mysql_fetch_array($res2);
+
+	$status = '?';
+	switch ($row2['type']) {
+		case 'prichod': $status = 'pritomen'; break;
+		case 'odchod': $status = 'nepritomen'; break;
+		case 'odchod-obed': $status = 'obed'; break;
+		case 'odchod-sluzebne-praha':
+		case 'odchod-sluzebne-mimopraha': $status = 'sluzebni-cesta'; break;
+		case 'odchod-lekar': $status = 'lekar'; break;
+	}
+
 	echo "<li>";
+	echo "<img class=\"status\" src=\"" . $status . ".png\">";
 	echo "<a href=\"touchscreen_2.php?employee=" . $row["id"] . "\">";
 	echo $row["name"];
 	echo "</a>";
 	echo "</li>";
+
+	mysql_free_result($res2);
 }
+mysql_free_result($res);
 
 ?>
 </ul>
@@ -43,7 +65,12 @@ while ($row = mysql_fetch_array($res)) {
 Poslední záznam:
 <?php
 
-$res = mysql_query("SELECT actions.id,employees.name,actions.date,actions.time,actions.type FROM actions,employees WHERE actions.employee=employees.id ORDER BY actions.id DESC");
+$res = mysql_query("
+	SELECT actions.id,employees.name,actions.date,actions.time,actions.type
+	FROM actions,employees
+	WHERE actions.employee=employees.id
+	ORDER BY actions.id DESC LIMIT 1;
+");
 $row = mysql_fetch_array($res);
 mysql_free_result($res);
 
