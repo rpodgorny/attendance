@@ -3,15 +3,24 @@
 
 <?php
 
-if (!$_GET["id"]) $_GET["id"] = find_unused_id("comments");
-
-$res = db_query("
-	REPLACE INTO comments(id, date, employee, text)
-	VALUES (
-		'".$_GET["id"]."',"
-		."'".$_GET["date"]."',"
-		."'".$_GET["employee"]."',"
-		."'".$_GET["text"]."');");
+if (!$_GET["id"]) {
+	$res = db_query("
+		INSERT INTO comments
+		SET
+			date='".$_GET["date"]."',
+			employee='".$_GET["employee"]."',
+			text='".$_GET["text"]."'
+		;");
+} else {
+	$res = db_query("
+		UPDATE comments
+		SET
+			date='".$_GET["date"]."',
+			employee='".$_GET["employee"]."',
+			text='".$_GET["text"]."'
+		WHERE id='".$_GET["id"]."'
+		;");
+}
 
 ?>
 

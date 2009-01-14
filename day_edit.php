@@ -3,15 +3,24 @@
 
 <?php
 
-if (!$_GET["id"]) $_GET["id"] = find_unused_id("days");
-
-$res = db_query("
-	REPLACE INTO days(id, date, employee, type)
-	VALUES (
-		'".$_GET["id"]."',"
-		."'".$_GET["date"]."',"
-		."'".$_GET["employee"]."',"
-		."'".$_GET["type"]."');");
+if (!$_GET["id"]) {
+	$res = db_query("
+		INSERT INTO days
+		SET
+			date='".$_GET["date"]."',
+			employee='".$_GET["employee"]."',
+			type='".$_GET["type"]."'
+		;");
+} else {
+	$res = db_query("
+		UPDATE days
+		SET
+			date='".$_GET["date"]."',
+			employee='".$_GET["employee"]."',
+			type='".$_GET["type"]."'
+		WHERE id='".$_GET["id"]."'
+		;")
+}
 
 ?>
 

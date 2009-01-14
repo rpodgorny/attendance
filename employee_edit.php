@@ -3,28 +3,32 @@
 
 <?php
 
-if (!$_GET["id"]) $_GET["id"] = find_unused_id("employees");
 
 if ($_GET["active"] != 0) $_GET["active"] = 1;
 if ($_GET["stravenky"] != 0) $_GET["stravenky"] = 1;
 
-$res = db_query("
-	INSERT INTO employees
-	SET
-		id='".$_GET["id"]."',"
-		."name='".$_GET["name"]."',"
-		."plusminus='".$_GET["plusminus"]."',"
-		."dovolene='".$_GET["dovolene"]."',"
-		."active='".$_GET["active"]."',"
-		."stravenky='".$_GET["stravenky"]."'
-	ON DUPLICATE KEY UPDATE
-		id='".$_GET["id"]."',"
-		."name='".$_GET["name"]."',"
-		."plusminus='".$_GET["plusminus"]."',"
-		."dovolene='".$_GET["dovolene"]."',"
-		."active='".$_GET["active"]."',"
-		."stravenky='".$_GET["stravenky"]."'
-;");
+if (!$_GET["id"]) {
+	$res = db_query("
+		INSERT INTO employees
+		SET
+			name='".$_GET["name"]."',
+			plusminus='".$_GET["plusminus"]."',
+			dovolene='".$_GET["dovolene"]."',
+			active='".$_GET["active"]."',
+			stravenky='".$_GET["stravenky"]."'
+		;");
+} else {
+	$res = db_query("
+		UPDATE employees
+		SET
+			name='".$_GET["name"]."',
+			plusminus='".$_GET["plusminus"]."',
+			dovolene='".$_GET["dovolene"]."',
+			active='".$_GET["active"]."',
+			stravenky='".$_GET["stravenky"]."'
+		WHERE id='".$_GET["id"]."'
+	;");
+}
 
 ?>
 

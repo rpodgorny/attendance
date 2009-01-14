@@ -11,19 +11,6 @@ function db_query($query) {
 	return mysql_query($query);
 }
 
-function find_unused_id($table) {
-	$id = 1;
-
-	$res = db_query("SELECT MAX(id) AS id FROM " . $table . ";");
-	$row = mysql_fetch_array($res);
-	if ($row) $id = $row["id"] + 1;
-	mysql_free_result($res);
-	
-	if ($id == 0) $id = 1;
-
-	return $id;
-}
-
 function db_get($table, $col, $id) {
 	$val = "";
 

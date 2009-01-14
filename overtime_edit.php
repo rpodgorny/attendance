@@ -3,16 +3,24 @@
 
 <?php
 
-if (!$_GET["id"]) $_GET["id"] = find_unused_id("overtimes");
-
-$res = db_query("
-	REPLACE INTO overtimes(id, date, employee, time)
-	VALUES (
-		'".$_GET["id"]."',"
-		."'".$_GET["date"]."',"
-		."'".$_GET["employee"]."',"
-		."'".$_GET["time"]."');");
-
+if (!$_GET["id"]) {
+	$res = db_query("
+		INSERT INTO overtimes
+		SET
+			date='".$_GET["date"]."',
+			employee='".$_GET["employee"]."',
+			time='".$_GET["time"]."'
+		;");
+} else {
+	$res = db_query("
+		UPDATE overtimes
+		SET
+			date='".$_GET["date"]."',
+			employee='".$_GET["employee"]."',
+			time='".$_GET["time"]."'
+		WHERE id='".$_GET["id"]."'
+		;")
+}
 ?>
 
 <?php include("header.htm"); ?>

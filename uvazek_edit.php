@@ -3,16 +3,26 @@
 
 <?php
 
-if (!$_GET["id"]) $_GET["id"] = find_unused_id("uvazky");
-
-$res = db_query("
-	REPLACE INTO uvazky(id, employee, since, till, uvazek)
-	VALUES (
-		'".$_GET["id"]."',"
-		."'".$_GET["employee"]."',"
-		."'".$_GET["since"]."',"
-		."'".$_GET["till"]."',"
-		."'".$_GET["uvazek"]."');");
+if (!$_GET["id"]) {
+	$res = db_query("
+		INSERT INTO uvazky
+		SET
+			employee='".$_GET["employee"]."',
+			since='".$_GET["since"]."',
+			till='".$_GET["till"]."',
+			uvazek='".$_GET["uvazek"]."'
+		;");
+} else {
+	$res = db_query("
+		UPDATE uvazky
+		SET
+			employee='".$_GET["employee"]."',
+			since='".$_GET["since"]."',
+			till='".$_GET["till"]."',
+			uvazek='".$_GET["uvazek"]."'
+		WHERE id='".$_GET["id"]."'
+		;")
+}
 
 ?>
 
