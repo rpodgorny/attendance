@@ -3,19 +3,29 @@
 
 <?php
 
-if (!$_GET["id"]) $_GET["id"] = find_unused_id("actions");
-
 if (!$_GET["date"]) $_GET["date"] = date("Y-m-d");
 if (!$_GET["time"]) $_GET["time"] = date("H:i:s");
 
-$res = mysql_query("
-	REPLACE INTO actions(id, date, time, employee, type)
-	VALUES (
-		'".$_GET["id"]."',"
-		."'".$_GET["date"]."',"
-		."'".$_GET["time"]."',"
-		."'".$_GET["employee"]."',"
-		."'".$_GET["type"]."');");
+if (!$_GET["id"]) {
+	$res = mysql_query("
+		INSERT INTO actions
+		SET
+			date='".$_GET["date"]."',
+			time='".$_GET["time"]."',
+			employee='".$_GET["employee"]."',
+			type='".$_GET["type"]."'
+		;");
+} else {
+	$res = mysql_query("
+		UPDATE actions
+		SET
+			date='".$_GET["date"]."',
+			time='".$_GET["time"]."',
+			employee='".$_GET["employee"]."',
+			type='".$_GET["type"]."'
+		WHERE id=".$_GET["id"]."
+		;");
+}
 
 ?>
 
