@@ -20,7 +20,7 @@ Dobrý den, vítejte v docházkovém systému firmy Asterix a.s. Vyberte prosím
 <ul class="buttons">
 <?php
 
-$res = mysql_query("
+$res = db_query("
 	SELECT id,name
 	FROM employees
 	WHERE active=1
@@ -28,7 +28,7 @@ $res = mysql_query("
 ");
 
 while ($row = mysql_fetch_array($res)) {
-	$res2 = mysql_query("
+	$res2 = db_query("
 		select type
 		from actions
 		where employee=" . $row["id"] . " and date<=curdate()
@@ -65,7 +65,7 @@ mysql_free_result($res);
 Poslední záznam:
 <?php
 
-$res = mysql_query("
+$res = db_query("
 	SELECT actions.id,employees.name,actions.date,actions.time,actions.type
 	FROM actions,employees
 	WHERE actions.employee=employees.id

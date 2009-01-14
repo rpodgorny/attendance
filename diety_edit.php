@@ -5,7 +5,7 @@
 
 if (!$_GET["id"]) $_GET["id"] = find_unused_id("diety");
 
-$res = mysql_query("
+$res = db_query("
 	REPLACE INTO diety(id, date, employee, amount)
 	VALUES (
 		'".$_GET["id"]."',"

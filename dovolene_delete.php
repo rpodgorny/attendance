@@ -2,7 +2,7 @@
 
 <?php
 
-$res = mysql_query("DELETE FROM dovolene WHERE id='" . $_GET["id"] . "';");
+$res = db_query("DELETE FROM dovolene WHERE id='" . $_GET["id"] . "';");
 
 ?>
 

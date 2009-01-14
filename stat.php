@@ -22,7 +22,7 @@ echo $employeename;
 
 <?php
 
-$res = mysql_query("
+$res = db_query("
 	SELECT MIN(since) AS since
 	FROM uvazky
 	WHERE employee='" . $_GET["employee"] . "'

@@ -24,7 +24,7 @@ Zaměstnanec:<br />
 
 <?php
 
-$res = mysql_query("
+$res = db_query("
 	SELECT id,name
 	FROM employees
 	WHERE active='1'
