@@ -20,7 +20,7 @@ function day_totals($year, $month, $day, $employee) {
 
 	$str_date = $year . "-" . $month . "-" . $day;
 
-	$res = mysql_query("
+	$res = db_query("
 		SELECT time,type
 		FROM actions
 		WHERE
@@ -147,7 +147,7 @@ function day_totals($year, $month, $day, $employee) {
 	mysql_free_result($res);
 
 
-	$res = mysql_query("
+	$res = db_query("
 		SELECT id,time
 		FROM overtimes
 		WHERE
@@ -162,7 +162,7 @@ function day_totals($year, $month, $day, $employee) {
 	}
 	mysql_free_result($res);
 
-	$res = mysql_query("
+	$res = db_query("
 		SELECT id,type
 		FROM days
 		WHERE
@@ -178,7 +178,7 @@ function day_totals($year, $month, $day, $employee) {
 	}
 	mysql_free_result($res);
 
-	$res = mysql_query("
+	$res = db_query("
 		SELECT id,amount
 		FROM diety
 		WHERE
@@ -193,7 +193,7 @@ function day_totals($year, $month, $day, $employee) {
 	}
 	mysql_free_result($res);
 
-	$res = mysql_query("
+	$res = db_query("
 		SELECT id,text
 		FROM comments
 		WHERE
@@ -209,7 +209,7 @@ function day_totals($year, $month, $day, $employee) {
 	}
 	mysql_free_result($res);
 
-	$res = mysql_query("
+	$res = db_query("
 		SELECT uvazek
 		FROM uvazky
 		WHERE

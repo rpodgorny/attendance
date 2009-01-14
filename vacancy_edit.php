@@ -4,12 +4,12 @@
 <?php
 
 if (!$_GET["id"]) {
-	$res = mysql_query("
+	$res = db_query("
 		INSERT INTO vacancies
 		SET date='" . $_GET['date'] . "'
 	;");
 } else {
-	$res = mysql_query("
+	$res = db_query("
 		UPDATE vacancies
 		SET date='" . $_GET['date'] . "'
 		WHERE id=" . $_GET['id'] . "

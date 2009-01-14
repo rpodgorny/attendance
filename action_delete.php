@@ -3,7 +3,7 @@
 
 <?php
 
-$res = mysql_query("DELETE FROM actions WHERE id='" . $_GET["id"] . "';");
+$res = db_query("DELETE FROM actions WHERE id='" . $_GET["id"] . "';");
 
 ?>
 

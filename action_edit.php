@@ -7,7 +7,7 @@ if (!$_GET["date"]) $_GET["date"] = date("Y-m-d");
 if (!$_GET["time"]) $_GET["time"] = date("H:i:s");
 
 if (!$_GET["id"]) {
-	$res = mysql_query("
+	$res = db_query("
 		INSERT INTO actions
 		SET
 			date='".$_GET["date"]."',
@@ -16,7 +16,7 @@ if (!$_GET["id"]) {
 			type='".$_GET["type"]."'
 		;");
 } else {
-	$res = mysql_query("
+	$res = db_query("
 		UPDATE actions
 		SET
 			date='".$_GET["date"]."',

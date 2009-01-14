@@ -8,7 +8,7 @@ if (!$_GET["id"]) $_GET["id"] = find_unused_id("employees");
 if ($_GET["active"] != 0) $_GET["active"] = 1;
 if ($_GET["stravenky"] != 0) $_GET["stravenky"] = 1;
 
-$res = mysql_query("
+$res = db_query("
 	INSERT INTO employees
 	SET
 		id='".$_GET["id"]."',"

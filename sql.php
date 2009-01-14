@@ -4,10 +4,17 @@ $sql = mysql_connect("localhost", "attendance", "attendance");
 mysql_select_db("attendance");
 
 
+function db_query($query) {
+	//print $query;
+
+	//return mysql_query(mysql_real_escape_string($query));
+	return mysql_query($query);
+}
+
 function find_unused_id($table) {
 	$id = 1;
 
-	$res = mysql_query("SELECT MAX(id) AS id FROM " . $table . ";");
+	$res = db_query("SELECT MAX(id) AS id FROM " . $table . ";");
 	$row = mysql_fetch_array($res);
 	if ($row) $id = $row["id"] + 1;
 	mysql_free_result($res);
@@ -20,7 +27,7 @@ function find_unused_id($table) {
 function db_get($table, $col, $id) {
 	$val = "";
 
-	$res = mysql_query("SELECT " . $col . " FROM " . $table . " WHERE id='" . $id . "';");
+	$res = db_query("SELECT " . $col . " FROM " . $table . " WHERE id='" . $id . "';");
 	$row = mysql_fetch_array($res);
 	if ($row) $val = $row[$col];
 	mysql_free_result($res);
@@ -31,7 +38,7 @@ function db_get($table, $col, $id) {
 function db_get_condition($table, $col, $cond) {
 	$val = "";
 
-	$res = mysql_query("SELECT " . $col . " FROM " . $table . " WHERE " . $cond . ";");
+	$res = db_query("SELECT " . $col . " FROM " . $table . " WHERE " . $cond . ";");
 	$row = mysql_fetch_array($res);
 	if ($row) $val = $row[$col];
 	mysql_free_result($res);
@@ -45,7 +52,7 @@ function db_get_many($table, $col, $where = "", $order = "") {
 	if (strlen($where) > 0) $where = " WHERE " . $where;
 	if (strlen($order) > 0) $order = " ORDER BY " . $order;
 
-	$res = mysql_query("SELECT " . $col . " FROM " . $table . $where . $order . ";");
+	$res = db_query("SELECT " . $col . " FROM " . $table . $where . $order . ";");
 	$i = 0;
 	while ($row = mysql_fetch_array($res)) {
 		$ret[$i++] = $row[$col];
@@ -59,7 +66,7 @@ function print_table($table, $columns, $condition, $order, $labels, $link) {
         if (strlen($condition)) $condition = "WHERE " . $condition;
         if (strlen($order)) $order = "ORDER BY " . $order;
 
-        $res = mysql_query("SELECT " . $columns . " FROM " . $table . " " . $condition . " " . $order . ";");
+        $res = db_query("SELECT " . $columns . " FROM " . $table . " " . $condition . " " . $order . ";");
         if (!$res) return;
 
         $cols = explode(",", $columns);

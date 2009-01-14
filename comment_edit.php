@@ -5,7 +5,7 @@
 
 if (!$_GET["id"]) $_GET["id"] = find_unused_id("comments");
 
-$res = mysql_query("
+$res = db_query("
 	REPLACE INTO comments(id, date, employee, text)
 	VALUES (
 		'".$_GET["id"]."',"

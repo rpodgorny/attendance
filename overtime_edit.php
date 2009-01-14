@@ -5,7 +5,7 @@
 
 if (!$_GET["id"]) $_GET["id"] = find_unused_id("overtimes");
 
-$res = mysql_query("
+$res = db_query("
 	REPLACE INTO overtimes(id, date, employee, time)
 	VALUES (
 		'".$_GET["id"]."',"
