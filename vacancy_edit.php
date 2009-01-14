@@ -3,14 +3,18 @@
 
 <?php
 
-if (!$_GET["id"]) $_GET["id"] = find_unused_id("vacancies");
-
-$res = mysql_query("
-	REPLACE INTO vacancies(id, date)
-	VALUES (
-		'".$_GET["id"]."',"
-		."'".$_GET["date"]."')
-;");
+if (!$_GET["id"]) {
+	$res = mysql_query("
+		INSERT INTO vacancies
+		SET date='" . $_GET['date'] . "'
+	;");
+} else {
+	$res = mysql_query("
+		UPDATE vacancies
+		SET date='" . $_GET['date'] . "'
+		WHERE id=" . $_GET['id'] . "
+	;");
+}
 
 ?>
 
