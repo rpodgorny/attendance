@@ -31,7 +31,7 @@ while ($row = mysql_fetch_array($res)) {
 	$res2 = mysql_query("
 		select type
 		from actions
-		where employee=" . $row["id"] . "
+		where employee=" . $row["id"] . " and date<=curdate()
 		order by date desc,time desc limit 1;
 	");
 	$row2 = mysql_fetch_array($res2);
