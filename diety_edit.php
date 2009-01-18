@@ -9,7 +9,7 @@ if (!$_GET["id"]) {
 		SET
 			date='".$_GET["date"]."',
 			employee='".$_GET["employee"]."',
-			type='".$_GET["amount"]."'
+			amount='".$_GET["amount"]."'
 		;");
 } else {
 	$res = db_query("
