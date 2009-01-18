@@ -19,7 +19,7 @@ if (!$_GET["id"]) {
 			employee='".$_GET["employee"]."',
 			amount='".$_GET["amount"]."'
 		WHERE id='".$_GET["id"]."'
-		;")
+		;");
 }
 
 ?>
