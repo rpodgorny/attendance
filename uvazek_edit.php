@@ -21,7 +21,7 @@ if (!$_GET["id"]) {
 			till='".$_GET["till"]."',
 			uvazek='".$_GET["uvazek"]."'
 		WHERE id='".$_GET["id"]."'
-		;")
+		;");
 }
 
 ?>
