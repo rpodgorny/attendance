@@ -35,6 +35,7 @@ while ($row = mysql_fetch_array($res)) {
 		order by date desc,time desc limit 1;
 	");
 	$row2 = mysql_fetch_array($res2);
+	mysql_free_result($res2);
 
 	$status = '?';
 	switch ($row2['type']) {
@@ -46,14 +47,29 @@ while ($row = mysql_fetch_array($res)) {
 		case 'odchod-lekar': $status = 'lekar'; break;
 	}
 
+	// now check (and possibly overwrite status with) the whole-day status
+	$res2 = db_query("
+		select type
+		from days
+		where employee=" . $row["id"] . " and date=curdate()
+		order by date desc limit 1;
+	");
+	$row2 = mysql_fetch_array($res2);
+	mysql_free_result($res2);
+
+	switch ($row2['type']) {
+		case 'nemoc': $status = 'nemoc'; break;
+		case 'dovolena': $status = 'dovolena'; break;
+	}
+
+	// TODO: what if on vacation/sick and still present? display both? (safety - in case of fire, ...)
+
 	echo "<li>";
 	echo "<img class=\"status\" src=\"" . $status . ".png\">";
 	echo "<a href=\"touchscreen_2.php?employee=" . $row["id"] . "\">";
 	echo $row["name"];
 	echo "</a>";
 	echo "</li>";
-
-	mysql_free_result($res2);
 }
 mysql_free_result($res);
 
