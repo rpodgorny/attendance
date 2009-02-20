@@ -29,7 +29,7 @@ Opravdu smazat?
 </table>
 
 <p>
-<a href="comment_delete.php?id=<?php echo $_GET["id"]; ?>">ANO</a>
+<a href="comment_delete.php?id=<?php echo $_GET["id"]; ?>&goto=-2">ANO</a>
 </p>
 
 <?php include("footer.htm"); ?>
