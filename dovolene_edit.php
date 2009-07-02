@@ -9,8 +9,8 @@ if (!$_GET["id"]) {
 		SET
 			year='".$_GET["year"]."',
 			employee='".$_GET["employee"]."',
-			daye='".$_GET["days"]."',
-			days_lastyear'".$_GET["days_lastyear"]."'
+			days='".$_GET["days"]."',
+			days_lastyear='".$_GET["days_lastyear"]."'
 		;");
 } else {
 	$res = db_query("
