@@ -20,7 +20,7 @@ Opravdu smazat?
 </p>
 
 <p>
-<a href="uvazek_delete.php?id=<?php echo $_GET["id"]; ?>">ANO</a>
+<a href="uvazek_delete.php?id=<?php echo $_GET["id"]; ?>&goto=-2">ANO</a>
 </p>
 
 <?php include("footer.htm"); ?>
