@@ -1,4 +1,5 @@
 <?php require_once("sql.php"); ?>
+<?php require_once("goto.php"); ?>
 
 <?php
 
@@ -10,10 +11,13 @@ $res = db_query("DELETE FROM dovolene WHERE id='" . $_GET["id"] . "';");
 
 <?php
 
-if ($res)
+if ($res) {
 	echo "V pořádku.";
-else
+
+	handle_goto_body($_GET["goto"]);
+} else {
 	echo "CHYBA!!!";
+}
 
 ?>
 

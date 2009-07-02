@@ -1,4 +1,5 @@
 <?php require_once("sql.php"); ?>
+<?php require_once("goto.php"); ?>
 
 <?php
 
@@ -15,11 +16,14 @@ $res = db_query("DELETE FROM comments WHERE employee='" . $_GET["id"] . "';");
 
 <?php
 
-if ($res)
+if ($res) {
 	echo "V pořádku.";
-else
+
+	handle_goto_body($_GET["goto"]);
+} else {
 	echo "CHYBA!!!";
+}
 
 ?>
 
-<?php include("footer.htm");
+<?php include("footer.htm"); ?>
