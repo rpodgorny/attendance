@@ -60,8 +60,8 @@ while ($row = mysql_fetch_array($res)) {
 <p>
 Typ:
 <select name="type">
-	<option value="nemoc" <?php if ($type == "nemoc") echo "selected"; ?>>nemoc</option>
 	<option value="dovolena" <?php if ($type == "dovolena") echo "selected"; ?>>dovolená</option>
+	<option value="nemoc" <?php if ($type == "nemoc") echo "selected"; ?>>nemoc</option>
 	<option value="nahrada" <?php if ($type == "nahrada") echo "selected"; ?>>náhrada</option>
 </select>
 </p>
