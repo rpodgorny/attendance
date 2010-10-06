@@ -17,7 +17,7 @@ Průchody
 
 if (auth()) {
 	echo "<p>";
-	echo "<a href=\"form_action_edit.php\">přidat nový záznam</a>";
+	echo "<a href=\"form_action_edit.php?date=".$_GET["date"]."&employee=".$_GET["employee"]."\">přidat nový záznam</a>";
 	echo "</p>";
 }
 
