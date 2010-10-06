@@ -8,8 +8,15 @@ if ($_GET["from_id"]) {
 	$employee = db_get("actions", "employee", $_GET["from_id"]);
 	$type = db_get("actions", "type", $_GET["from_id"]);
 } else {
-	$date = date("Y-m-d");
-	$time = date("H:i:s");
+	if ($_GET["date"]) {
+		$date = $_GET["date"];
+		$time = '00:00:00';
+	} else {
+		$date = date("Y-m-d");
+		$time = date("H:i:s");
+	}
+
+	$employee = $_GET["employee"];
 }
 
 
