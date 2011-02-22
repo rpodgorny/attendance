@@ -63,6 +63,7 @@ Typ:
 	<option value="dovolena" <?php if ($type == "dovolena") echo "selected"; ?>>dovolená</option>
 	<option value="nemoc" <?php if ($type == "nemoc") echo "selected"; ?>>nemoc</option>
 	<option value="nahrada" <?php if ($type == "nahrada") echo "selected"; ?>>náhrada</option>
+	<option value="neplacene_volno" <?php if ($type == "neplacene_volno") echo "selected"; ?>>neplacene volno</option>
 </select>
 </p>
 
