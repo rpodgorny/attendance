@@ -226,7 +226,8 @@ function day_totals($year, $month, $day, $employee) {
 	if (is_workday($year, $month, $day)
 	&& $total["status_type"] != "nemoc"
 	&& $total["status_type"] != "dovolena"
-	&& $total["status_type"] != "nahrada") {
+	&& $total["status_type"] != "nahrada"
+	&& $total["status_type"] != "neplacene_volno") {
 		$total["plusminus"] -= $uvazek*60*60;
 
 		if (!$total["diety_id"] && $total["diety_kc"] == 0)
