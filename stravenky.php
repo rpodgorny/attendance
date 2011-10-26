@@ -20,8 +20,9 @@ Stravenky
 </h1>
 
 <h2>
-Výdej stravenek a odečet ze mzdy za měsíc
-<?php echo monthname($_GET["month"]); ?> <? echo $_GET["year"] ?>
+Výdej stravenek a odečet ze mzdy
+-
+<?php echo monthname($_GET["month"]) . " " . $_GET["year"]; ?>
 </h2>
 
 <table class="maxwidth">
