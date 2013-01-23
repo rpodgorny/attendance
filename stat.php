@@ -27,7 +27,7 @@ $res = db_query("
 	FROM uvazky
 	WHERE employee='" . $_GET["employee"] . "'
 ;");
-$row = mysql_fetch_array($res);
+$row = pg_fetch_array($res);
 $since = $row["since"];
 
 $date = getdate(strtotime($since));

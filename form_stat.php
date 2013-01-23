@@ -27,11 +27,11 @@ Zaměstnanec:<br />
 $res = db_query("
 	SELECT id,name
 	FROM employees
-	WHERE active='1'
+	WHERE active=1
 	ORDER BY name;
 ");
 
-while ($row = mysql_fetch_array($res)) {
+while ($row = pg_fetch_array($res)) {
 	echo "<option value=\"" . $row["id"] . "\">";
 	echo $row["name"];
 	echo "</option>";
