@@ -8,13 +8,13 @@ if (!$_GET["time"]) $_GET["time"] = date("H:i:s");
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO actions
-		SET
-			date='".$_GET["date"]."',
-			time='".$_GET["time"]."',
-			employee='".$_GET["employee"]."',
-			type='".$_GET["type"]."'
-		;");
+		INSERT INTO actions(date,time,employee,type)
+		VALUES(
+			'".$_GET["date"]."',
+			'".$_GET["time"]."',
+			'".$_GET["employee"]."',
+			'".$_GET["type"]."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE actions

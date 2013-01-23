@@ -39,7 +39,7 @@ $res = db_query("
 	ORDER BY name
 ;");
 
-while ($row = mysql_fetch_array($res)) {
+while ($row = pg_fetch_array($res)) {
 	echo "<option value=\"" . $row["id"] . "\"";
 	if ($row["id"] == $employee) echo " selected";
 	echo ">";

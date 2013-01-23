@@ -84,8 +84,8 @@ function monthname($month) {
 function is_holiday($year, $month, $day) {
 	$date = date_to_string($year, $month, $day);
 	$res = db_query("SELECT id FROM vacancies WHERE date='". $date ."'");
-	$row = mysql_fetch_array($res);
-	mysql_free_result($res);
+	$row = pg_fetch_array($res);
+	pg_free_result($res);
 
 	if ($row) return true;
 
