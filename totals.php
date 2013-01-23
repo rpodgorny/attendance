@@ -31,7 +31,7 @@ function day_totals($year, $month, $day, $employee) {
 
 	// This is nasty
 	for (;;) {
-		$row = mysql_fetch_array($res);
+		$row = pg_fetch_array($res);
 
 		if (!$row) {
 			if ($at_work
@@ -156,7 +156,7 @@ function day_totals($year, $month, $day, $employee) {
 		if ($at_cesta_mimopraha) $total["daylog"] .= " - cesta mimo Prahu - ";
 		if ($at_doctor) $total["daylog"] .= " - lékař - ";
 	}
-	mysql_free_result($res);
+	pg_free_result($res);
 
 
 	$res = db_query("
@@ -166,13 +166,13 @@ function day_totals($year, $month, $day, $employee) {
 			date='" . $str_date . "'
 			AND employee='" . $employee . "'
 	;");
-	$row = mysql_fetch_array($res);
+	$row = pg_fetch_array($res);
 	$total["overtime_id"] = $total["overtime_time"] = 0;
 	if ($row) {
 		$total["overtime_id"] = $row["id"];
 		$total["overtime_time"] = datetime_to_secs($row["time"]);
 	}
-	mysql_free_result($res);
+	pg_free_result($res);
 
 	$res = db_query("
 		SELECT id,type
@@ -181,14 +181,14 @@ function day_totals($year, $month, $day, $employee) {
 			date='" . $str_date . "'
 			AND employee='" . $employee . "'
 	;");
-	$row = mysql_fetch_array($res);
+	$row = pg_fetch_array($res);
 	$total["status_id"] = 0;
 	$total["status_type"] = "";
 	if ($row) {
 		$total["status_id"] = $row["id"];
 		$total["status_type"] = $row["type"];
 	}
-	mysql_free_result($res);
+	pg_free_result($res);
 
 	$res = db_query("
 		SELECT id,amount
@@ -197,13 +197,13 @@ function day_totals($year, $month, $day, $employee) {
 			date='" . $str_date . "'
 			AND employee='" . $employee . "'
 	;");
-	$row = mysql_fetch_array($res);
+	$row = pg_fetch_array($res);
 	$total["diety_id"] = 0;
 	if ($row) {
 		$total["diety_kc"] = $row["amount"];
 		$total["diety_id"] = $row["id"];
 	}
-	mysql_free_result($res);
+	pg_free_result($res);
 
 	$res = db_query("
 		SELECT id,text
@@ -212,14 +212,14 @@ function day_totals($year, $month, $day, $employee) {
 			employee='" . $employee . "'
 			AND date='" . $str_date . "'
 	;");
-	$row = mysql_fetch_array($res);
+	$row = pg_fetch_array($res);
 	$total["comment_id"] = 0;
 	$total["comment_text"] = "";
 	if ($row) {
 		$total["comment_id"] = $row["id"];
 		$total["comment_text"] = $row["text"];
 	}
-	mysql_free_result($res);
+	pg_free_result($res);
 
 	$res = db_query("
 		SELECT uvazek
@@ -229,7 +229,7 @@ function day_totals($year, $month, $day, $employee) {
 			AND since<='" . $str_date . "'
 			AND till>='" . $str_date . "'
 	;");
-	$row = mysql_fetch_array($res);
+	$row = pg_fetch_array($res);
 	$uvazek = $row["uvazek"];
 
 	$ratio = $uvazek / 8.0;

@@ -4,19 +4,19 @@
 <?php
 
 
-if ($_GET["active"] != 0) $_GET["active"] = 1;
-if ($_GET["stravenky"] != 0) $_GET["stravenky"] = 1;
+$active = $_GET["active"] != 0 ? 1 : 0;;
+$stravenky = $_GET["stravenky"] != 0 ? 1 : 0;
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO employees
-		SET
-			name='".$_GET["name"]."',
-			plusminus='".$_GET["plusminus"]."',
-			dovolene='".$_GET["dovolene"]."',
-			active='".$_GET["active"]."',
-			stravenky='".$_GET["stravenky"]."'
-		;");
+		INSERT INTO employees(name,plusminus,dovolene,active,stravenky)
+		VALUES(
+			'".$_GET["name"]."',
+			'".$_GET["plusminus"]."',
+			'".$_GET["dovolene"]."',
+			'".$active."',
+			'".$stravenky."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE employees
@@ -24,8 +24,8 @@ if (!$_GET["id"]) {
 			name='".$_GET["name"]."',
 			plusminus='".$_GET["plusminus"]."',
 			dovolene='".$_GET["dovolene"]."',
-			active='".$_GET["active"]."',
-			stravenky='".$_GET["stravenky"]."'
+			active='".$active."',
+			stravenky='".$stravenky."'
 		WHERE id='".$_GET["id"]."'
 	;");
 }
