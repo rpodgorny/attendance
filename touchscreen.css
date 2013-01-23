@@ -1,0 +1,78 @@
+.buttons {
+	padding: 0;
+}
+
+.buttons li {
+	float: left;
+	width: 45%;
+	list-style-type: none;
+	text-align: center;
+	border: .2em solid #daa520;
+	background-color: #191970;
+	color: #daa520;
+	padding: 6px;
+	margin: 1% 1%;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.buttons li a {
+	padding: 8px 0px 0px 0px;
+	height: 45px;
+	color: #daa520;
+	text-decoration: none;
+	display: block;
+}
+
+.buttons li a:hover {
+	background-color: #faebd7;
+	color: #191970;
+}
+
+.buttons li img.status {
+	float: right;
+}
+
+.buttons-back {
+	padding: 0;
+}
+
+.buttons-back li {
+	width: 45.5%;
+	list-style-type: none;
+	text-align: center;
+	border: .2em solid #daa520;
+	background-color: #191970;
+	color: #daa520;
+	padding: 6px;
+	margin: 27.25% 27.25% 0 27.25%;
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.buttons-back li a {
+	padding: 8px 0px 0px 0px;
+	height: 45px;
+	color: #daa520;
+	text-decoration: none;
+	display: block;
+}
+
+.buttons-back li a:hover {
+	background-color: #faebd7;
+	color: #191970;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: url("background.gif") left bottom repeat;
+}
+
+p {
+	color: white; 
+	font-weight: bold;
+	font-size: 18px;
+	text-align: center;
+	clear: both;
+}
