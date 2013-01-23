@@ -17,7 +17,8 @@ CREATE TABLE actions(
 	type actions_enum,
 	date DATE,
 	time INTERVAL,
-	datetime TIMESTAMP
+	datetime TIMESTAMP,
+	UNIQUE(employee,date,time);
 );
 CREATE INDEX ON actions(employee);
 CREATE INDEX ON actions(date);
