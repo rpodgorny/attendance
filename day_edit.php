@@ -5,12 +5,12 @@
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO days
-		SET
-			date='".$_GET["date"]."',
-			employee='".$_GET["employee"]."',
-			type='".$_GET["type"]."'
-		;");
+		INSERT INTO days(date,employee,type)
+		VALUES(
+			'".$_GET["date"]."',
+			'".$_GET["employee"]."',
+			'".$_GET["type"]."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE days

@@ -5,12 +5,12 @@
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO diety
-		SET
-			date='".$_GET["date"]."',
-			employee='".$_GET["employee"]."',
-			amount='".$_GET["amount"]."'
-		;");
+		INSERT INTO diety(date,employee,amount)
+		VALUES(
+			'".$_GET["date"]."',
+			'".$_GET["employee"]."',
+			'".$_GET["amount"]."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE diety

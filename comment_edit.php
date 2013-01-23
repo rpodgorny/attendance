@@ -5,12 +5,12 @@
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO comments
-		SET
-			date='".$_GET["date"]."',
-			employee='".$_GET["employee"]."',
-			text='".$_GET["text"]."'
-		;");
+		INSERT INTO comments(date,employee,text)
+		VALUES(
+			'".$_GET["date"]."',
+			'".$_GET["employee"]."',
+			'".$_GET["text"]."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE comments
