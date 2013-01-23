@@ -257,6 +257,7 @@ function day_totals($year, $month, $day, $employee) {
 function month_totals($year, $month, $employee, $print) {
 	$total["odpracovano"] = 0;
 	$total["plusminus"] = 0;
+	$total['overtime'] = 0;
 	$total["days_nemoc"] = 0;
 	$total["days_dovolena"] = 0;
 	$total["stravenky"] = 0;
