@@ -5,13 +5,13 @@
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO dovolene
-		SET
-			year='".$_GET["year"]."',
-			employee='".$_GET["employee"]."',
-			days='".$_GET["days"]."',
-			days_lastyear='".$_GET["days_lastyear"]."'
-		;");
+		INSERT INTO dovolene(year,employee,days,days_lastyear)
+		VALUES(
+			'".$_GET["year"]."',
+			'".$_GET["employee"]."',
+			'".$_GET["days"]."',
+			'".$_GET["days_lastyear"]."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE dovolene

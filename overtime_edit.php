@@ -5,12 +5,12 @@
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO overtimes
-		SET
-			date='".$_GET["date"]."',
-			employee='".$_GET["employee"]."',
-			time='".$_GET["time"]."'
-		;");
+		INSERT INTO overtimes(date,employee,time)
+		VALUES(
+			'".$_GET["date"]."',
+			'".$_GET["employee"]."',
+			'".$_GET["time"]."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE overtimes

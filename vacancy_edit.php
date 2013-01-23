@@ -5,8 +5,8 @@
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO vacancies
-		SET date='" . $_GET['date'] . "'
+		INSERT INTO vacancies(date)
+		VALUES('" . $_GET['date'] . "')
 	;");
 } else {
 	$res = db_query("

@@ -5,13 +5,13 @@
 
 if (!$_GET["id"]) {
 	$res = db_query("
-		INSERT INTO uvazky
-		SET
-			employee='".$_GET["employee"]."',
-			since='".$_GET["since"]."',
-			till='".$_GET["till"]."',
-			uvazek='".$_GET["uvazek"]."'
-		;");
+		INSERT INTO uvazky(employee,since,till,uvazek)
+		VALUES(
+			'".$_GET["employee"]."',
+			'".$_GET["since"]."',
+			'".$_GET["till"]."',
+			'".$_GET["uvazek"]."'
+		);");
 } else {
 	$res = db_query("
 		UPDATE uvazky
