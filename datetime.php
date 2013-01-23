@@ -20,12 +20,13 @@ function datetime_to_secs($date) {
 }
 
 function secs_to_time($secs) {
+	$time = '';
+
 	if ($secs < 0) {
 		$time = "-";
 		$secs = -$secs;
 	}
 
-	$time = '';
 	$time .= floor($secs / (60*60));
 	$secs %= 60*60;
 	$time .= ":";
