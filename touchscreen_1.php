@@ -28,15 +28,15 @@ $res = db_query("
 	ORDER BY name;
 ");
 
-while ($row = mysql_fetch_array($res)) {
+while ($row = pg_fetch_array($res)) {
 	$res2 = db_query("
 		select type
 		from actions
-		where employee=" . $row["id"] . " and date<=curdate()
+		where employee=" . $row["id"] . " and date<=current_date
 		order by date desc,time desc limit 1;
 	");
-	$row2 = mysql_fetch_array($res2);
-	mysql_free_result($res2);
+	$row2 = pg_fetch_array($res2);
+	pg_free_result($res2);
 
 	$status = '?';
 	switch ($row2['type']) {
@@ -52,11 +52,11 @@ while ($row = mysql_fetch_array($res)) {
 	$res2 = db_query("
 		select type
 		from days
-		where employee=" . $row["id"] . " and date=curdate()
+		where employee=" . $row["id"] . " and date=current_date
 		order by date desc limit 1;
 	");
-	$row2 = mysql_fetch_array($res2);
-	mysql_free_result($res2);
+	$row2 = pg_fetch_array($res2);
+	pg_free_result($res2);
 
 	switch ($row2['type']) {
 		case 'nemoc': $status = 'nemoc'; break;
@@ -72,7 +72,7 @@ while ($row = mysql_fetch_array($res)) {
 	echo "</a>";
 	echo "</li>";
 }
-mysql_free_result($res);
+pg_free_result($res);
 
 ?>
 </ul>
@@ -88,8 +88,8 @@ $res = db_query("
 	WHERE actions.employee=employees.id
 	ORDER BY actions.id DESC LIMIT 1;
 ");
-$row = mysql_fetch_array($res);
-mysql_free_result($res);
+$row = pg_fetch_array($res);
+pg_free_result($res);
 
 echo $row["name"] . ", " . $row["date"] . " " . $row["time"] . ", " . $row["type"];
 
