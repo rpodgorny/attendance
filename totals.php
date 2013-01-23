@@ -227,7 +227,7 @@ function day_totals($year, $month, $day, $employee) {
 		WHERE
 			employee='" . $employee . "'
 			AND since<='" . $str_date . "'
-			AND till>='" . $str_date . "'
+			AND (till>='" . $str_date . "' OR till IS NULL)
 	;");
 	$row = mysql_fetch_array($res);
 	$uvazek = $row["uvazek"];
