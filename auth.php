@@ -34,7 +34,7 @@ function auth_header() {
 }
 
 function auth() {
-	if ($_SESSION["password"] == "jarigo") return true;
+	if (array_key_exists('password', $_SESSION) && $_SESSION["password"] == "jarigo") return true;
 	return false;
 }
 

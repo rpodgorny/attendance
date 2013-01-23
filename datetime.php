@@ -25,6 +25,7 @@ function secs_to_time($secs) {
 		$secs = -$secs;
 	}
 
+	$time = '';
 	$time .= floor($secs / (60*60));
 	$secs %= 60*60;
 	$time .= ":";

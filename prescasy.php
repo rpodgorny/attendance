@@ -36,6 +36,9 @@ for ($day = 1; checkdate($_GET["month"], $day, $_GET["year"]); $day++) {
 	$date = date_to_string($_GET["year"], $_GET["month"], $day);
 
 	$time = db_get_condition("overtimes", "time", "date='".$date."' AND employee='".$_GET["employee"]."'");
+
+	if (!$time) continue;
+
 	$time = datetime_to_secs($time);
 
 	if ($time == 0) continue;

@@ -36,6 +36,7 @@ Výdej stravenek a odečet ze mzdy
 <?php
 
 $total_vydat = 0;
+$total_prispevek = 0;
 
 $employees = db_get_many("employees", "id", "active=1 AND stravenky=1", "name");
 
