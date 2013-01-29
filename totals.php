@@ -66,19 +66,25 @@ function day_totals($year, $month, $day, $employee) {
 			if ($at_cesta_mimopraha) {
 				$total["odpracovano"] += $secs - $secs_old;
 				if ($secs - $secs_old > 18*60*60) {
-					if ($year >= 2012) {
+					if ($year >= 2013) {
+						$total["diety_kc"] = 157;
+					} elseif ($year >= 2012) {
 						$total["diety_kc"] = 166;
 					} else {
 						$total["diety_kc"] = 150;
 					}
 				} else if ($secs - $secs_old > 12*60*60) {
-					if ($year >= 2012) {
+					if ($year >= 2013) {
+						$total["diety_kc"] = 100;
+					} elseif ($year >= 2012) {
 						$total["diety_kc"] = 106;
 					} else {
 						$total["diety_kc"] = 96;
 					}
 				} else if ($secs - $secs_old > 5*60*60) {
-					if ($year >= 2012) {
+					if ($year >= 2013) {
+						$total["diety_kc"] = 66;
+					} elseif ($year >= 2012) {
 						$total["diety_kc"] = 70;
 					} else {
 						$total["diety_kc"] = 63;
