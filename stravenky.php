@@ -8,9 +8,12 @@
 <?php auth_header(); ?>
 
 <?php
-	$hodnota_stravenky = 60;
-	if ($_GET["year"] > 2008 || ($_GET["year"] == 2008 && $_GET["month"] >= 12)) {
+	if ($_GET["year"] < 2008 || ($_GET["year"] == 2008 && $_GET["month"] < 12)) {
+		$hodnota_stravenky = 60;
+	} elseif ($_GET["year"] < 2013 || ($_GET["year"] == 2013 && $_GET["month"] < 7)) {
 		$hodnota_stravenky = 70;
+	} else {
+		$hodnota_stravenky = 80;
 	}
 ?>
 
