@@ -1,6 +1,10 @@
 <?php
 
-$sql = pg_connect('user=attendance');
+$db_host = getenv('DB_HOST');
+$db_name = 'attendance';
+$db_user = getenv('DB_USER');
+$db_pass = getenv('DB_PASSWORD');
+$sql = pg_connect('host=' . $db_host . ' dbname=' . $db_name . ' user=' . $db_user . ' password=' . $db_pass);
 
 function db_query($query) {
 	//print $query;
