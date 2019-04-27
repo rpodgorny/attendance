@@ -1,5 +1,6 @@
 FROM php:apache
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+RUN echo "date.timezone='Europe/Prague'" >>$PHP_INI_DIR/php.ini
 #RUN pecl install pdo_pgsql \
 #    && docker-php-ext-enable pdo_pgsql
 RUN apt-get update \
