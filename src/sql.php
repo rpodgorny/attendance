@@ -51,47 +51,47 @@ function db_get_many($table, $col, $where = "", $order = "") {
 }
 
 function print_table($table, $columns, $condition, $order, $labels, $link) {
-        if (strlen($condition)) $condition = "WHERE " . $condition;
-        if (strlen($order)) $order = "ORDER BY " . $order;
+	if (strlen($condition)) $condition = "WHERE " . $condition;
+	if (strlen($order)) $order = "ORDER BY " . $order;
 
-        $res = db_query("SELECT " . $columns . " FROM " . $table . " " . $condition . " " . $order . ";");
-        if (!$res) return;
+	$res = db_query("SELECT " . $columns . " FROM " . $table . " " . $condition . " " . $order . ";");
+	if (!$res) return;
 
-        $cols = explode(",", $columns);
-        $labs = explode(",", $labels);
+	$cols = explode(",", $columns);
+	$labs = explode(",", $labels);
 
-        echo "<table>";
-        echo "<tr>";
-        for ($i = 0; $i < count($labs); $i++) {
-                echo "<th>" . $labs[$i] . "</th>";
-        }
+	echo "<table>";
+	echo "<tr>";
+	for ($i = 0; $i < count($labs); $i++) {
+		echo "<th>" . $labs[$i] . "</th>";
+	}
 	if (strlen($link)) echo "<th></th>";
-        echo "</tr>";
+	echo "</tr>";
 
-        $oddeven = 0;
-        while ($row = pg_fetch_array($res)) {
-                echo ($oddeven++ % 2)? "<tr class=\"odd\">" : "<tr class=\"even\">";
+	$oddeven = 0;
+	while ($row = pg_fetch_array($res)) {
+		echo ($oddeven++ % 2)? "<tr class=\"odd\">" : "<tr class=\"even\">";
 
-                for ($i = 0; $i < count($cols); $i++) {
-                        echo "<td>" . $row[$i] . "</td>";
-                }
+		for ($i = 0; $i < count($cols); $i++) {
+			echo "<td>" . $row[$i] . "</td>";
+		}
 
 		if (strlen($link)) {
-	                echo "<td>";
-	                echo "<a href=\"form_" . $link . "_edit.php?from_id=" . $row["id"] . "&id=" . $row["id"] . "\">(*)</a>";
-	                echo "&nbsp;";
-	                echo "<a href=\"form_" . $link . "_delete.php?id=" . $row["id"] . "\">(-)</a>";
-	                echo "&nbsp;";
-	                echo "<a href=\"form_" . $link . "_edit.php?from_id=" . $row["id"] . "\">(+)</a>";
-        	        echo "</td>";
+			echo "<td>";
+			echo "<a href=\"form_" . $link . "_edit.php?from_id=" . $row["id"] . "&id=" . $row["id"] . "\">(*)</a>";
+			echo "&nbsp;";
+			echo "<a href=\"form_" . $link . "_delete.php?id=" . $row["id"] . "\">(-)</a>";
+			echo "&nbsp;";
+			echo "<a href=\"form_" . $link . "_edit.php?from_id=" . $row["id"] . "\">(+)</a>";
+			echo "</td>";
 		}
 		echo "\n";
 
-                echo "</tr>";
-        }
-        pg_free_result($res);
+		echo "</tr>";
+	}
+	pg_free_result($res);
 
-        echo "</table>";
+	echo "</table>";
 }
 
 ?>
