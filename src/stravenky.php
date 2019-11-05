@@ -50,12 +50,11 @@ for ($i = 0; $i < count($employees); $i++) {
 	$cur_tots = month_totals($_GET["year"], $_GET["month"], $emp, false);
 
 	$vydat = $cur_tots["stravenky"];
-	$hodnota = ceil(($vydat*$hodnota_stravenky)); 
-	$prispevek = ceil(($vydat*$hodnota_stravenky*0.45)); 
+	$hodnota = ceil(($vydat * $hodnota_stravenky));
+	$prispevek = ceil(($vydat * $hodnota_stravenky * 0.45));
 
 	$total_vydat += $vydat;
 	$total_prispevek += $prispevek;
-
 
 	echo "<tr>";
 	echo "<td>" . $name . "</td>";
