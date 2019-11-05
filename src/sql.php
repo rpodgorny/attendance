@@ -8,45 +8,37 @@ $sql = pg_connect('host=' . $db_host . ' dbname=' . $db_name . ' user=' . $db_us
 
 function db_query($query) {
 	//print $query;
-
 	return pg_query($query);
 }
 
 function db_get($table, $col, $id) {
 	$val = "";
-
 	$res = db_query("SELECT " . $col . " FROM " . $table . " WHERE id='" . $id . "';");
 	$row = pg_fetch_array($res);
 	if ($row) $val = $row[$col];
 	pg_free_result($res);
-
 	return $val;
 }
 
 function db_get_condition($table, $col, $cond) {
 	$val = "";
-
 	$res = db_query("SELECT " . $col . " FROM " . $table . " WHERE " . $cond . ";");
 	$row = pg_fetch_array($res);
 	if ($row) $val = $row[$col];
 	pg_free_result($res);
-
 	return $val;
 }
 
 function db_get_many($table, $col, $where = "", $order = "") {
 	$ret = "";
-
 	if (strlen($where) > 0) $where = " WHERE " . $where;
 	if (strlen($order) > 0) $order = " ORDER BY " . $order;
-
 	$res = db_query("SELECT " . $col . " FROM " . $table . $where . $order . ";");
 	$i = 0;
 	while ($row = pg_fetch_array($res)) {
 		$ret[$i++] = $row[$col];
 	}
 	pg_free_result($res);
-
 	return $ret;
 }
 
