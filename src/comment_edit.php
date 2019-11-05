@@ -12,6 +12,10 @@ if (!$_GET["id"]) {
 			'".$_GET["text"]."'
 		);");
 } else {
+	$employee_prev = db_get('comments', 'employee', $_GET['id']);
+	$date_prev = db_get('comments', 'date', $_GET['id']);
+	db_invalidate_cache_totals($employee_prev, $date_prev);
+
 	$res = db_query("
 		UPDATE comments
 		SET
@@ -21,6 +25,8 @@ if (!$_GET["id"]) {
 		WHERE id='".$_GET["id"]."'
 		;");
 }
+
+db_invalidate_cache_totals($_GET["employee"], $_GET["date"]);
 
 ?>
 

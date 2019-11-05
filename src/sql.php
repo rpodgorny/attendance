@@ -86,4 +86,62 @@ function print_table($table, $columns, $condition, $order, $labels, $link) {
 	echo "</table>";
 }
 
+function db_invalidate_cache_totals($employee, $date) {
+	error_log('invalidating cache ' . $employee . ' ' . $date);
+
+	if ($employee && $date) {
+		$res = db_query("
+			DELETE FROM cache_day_totals
+			WHERE
+				employee='".$employee."'
+				AND date='".$date."'
+			;");
+		pg_free_result($res);
+
+		$parsed = date_parse($date);
+		$res = db_query("
+			DELETE FROM cache_month_totals
+			WHERE
+				employee='".$employee."'
+				AND year='".$parsed['year']."'
+				AND month='".$parsed['month']."'
+			;");
+		pg_free_result($res);
+	} elseif ($employee) {
+		$res = db_query("
+			DELETE FROM cache_day_totals
+			WHERE employee='".$employee."'
+			;");
+		pg_free_result($res);
+
+		$res = db_query("
+			DELETE FROM cache_month_totals
+			WHERE employee='".$employee."'
+			;");
+		pg_free_result($res);
+	} elseif ($date) {
+		$res = db_query("
+			DELETE FROM cache_day_totals
+			WHERE date='".$date."'
+			;");
+		pg_free_result($res);
+
+		$parsed = date_parse($date);
+		$res = db_query("
+			DELETE FROM cache_month_totals
+			WHERE
+				year='".$parsed['year']."'
+				AND month='".$parsed['month']."'
+			;");
+		pg_free_result($res);
+	} else {
+		$res = db_query("DELETE FROM cache_day_totals;");
+		pg_free_result($res);
+
+		$res = db_query("DELETE FROM cache_month_totals;");
+		pg_free_result($res);
+	}
+	return true;
+}
+
 ?>

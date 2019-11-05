@@ -47,7 +47,7 @@ for ($i = 0; $i < count($employees); $i++) {
 	$emp = $employees[$i];
 
 	$name = db_get("employees", "name", $emp);
-	$cur_tots = month_totals($_GET["year"], $_GET["month"], $emp, false);
+	$cur_tots = month_totals($_GET["year"], $_GET["month"], $emp);
 
 	$vydat = $cur_tots["stravenky"];
 	$hodnota = ceil(($vydat * $hodnota_stravenky));

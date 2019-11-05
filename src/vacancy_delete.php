@@ -3,6 +3,9 @@
 
 <?php
 
+$date = db_get('vacancies', 'date', $_GET['id']);
+db_invalidate_cache_totals(null, $date);
+
 $res = db_query("DELETE FROM vacancies WHERE id='" . $_GET["id"] . "';");
 
 ?>

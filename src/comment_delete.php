@@ -3,6 +3,10 @@
 
 <?php
 
+$employee_prev = db_get('comments', 'employee', $_GET['id']);
+$date_prev = db_get('comments', 'date', $_GET['id']);
+db_invalidate_cache_totals($employee_prev, $date_prev);
+
 $res = db_query("DELETE FROM comments WHERE id='" . $_GET["id"] . "';");
 
 ?>

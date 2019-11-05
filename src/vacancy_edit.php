@@ -9,12 +9,17 @@ if (!$_GET["id"]) {
 		VALUES('" . $_GET['date'] . "')
 	;");
 } else {
+	$date_prev = db_get('vacancies', 'date', $_GET['id']);
+	db_invalidate_cache_totals(null, $date_prev);
+
 	$res = db_query("
 		UPDATE vacancies
 		SET date='" . $_GET['date'] . "'
 		WHERE id=" . $_GET['id'] . "
 	;");
 }
+
+db_invalidate_cache_totals(null, $_GET["date"]);
 
 ?>
 

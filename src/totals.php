@@ -16,10 +16,25 @@ function day_totals($year, $month, $day, $employee) {
 	$total["stravenky"] = 0;
 	$total["diety_kc"] = 0;
 	$total["daylog"] = "";
-	$total["error"] = false;
+	$total["error"] = 0;
 
 	$str_date = $year . "-" . $month . "-" . $day;
 
+	$res = db_query("
+		SELECT *
+		FROM cache_day_totals
+		WHERE
+			employee='" . $employee . "'
+			AND date='" . $str_date . "'
+	;");
+	$row = pg_fetch_array($res);
+	if ($row) {
+		$total = $row;
+		pg_free_result($res);
+		return $total;
+	}
+
+	//error_log("day_totals(" . $year . "," . $month . "," . $day . "," . $employee . ") begin");
 	$res = db_query("
 		SELECT time,type
 		FROM actions
@@ -143,7 +158,7 @@ function day_totals($year, $month, $day, $employee) {
 		} else if ($row["type"] == "odchod") {
 			if (!$at_work) {
 				$total["daylog"] .= "odchod bez příchodu";
-				$total["error"] = true;
+				$total["error"] = 1;
 				break;
 			}
 			$total["odpracovano"] += $secs - $secs_old;
@@ -151,7 +166,7 @@ function day_totals($year, $month, $day, $employee) {
 		} else if ($row["type"] == "odchod-obed") {
 			if (!$at_work) {
 				$total["daylog"] .= "odchod na oběd bez příchodu";
-				$total["error"] = true;
+				$total["error"] = 1;
 				break;
 			}
 			$total["odpracovano"] += $secs - $secs_old;
@@ -160,7 +175,7 @@ function day_totals($year, $month, $day, $employee) {
 		} else if ($row["type"] == "odchod-sluzebne-mimopraha") {
 			if (!$at_work) {
 				$total["daylog"] .= "odchod na sl. cestu bez příchodu";
-				$total["error"] = true;
+				$total["error"] = 1;
 				break;
 			}
 			$total["odpracovano"] += $secs - $secs_old;
@@ -169,7 +184,7 @@ function day_totals($year, $month, $day, $employee) {
 		} else if ($row["type"] == "odchod-sluzebne-praha") {
 			if (!$at_work) {
 				$total["daylog"] .= "odchod na sl. cestu bez příchodu";
-				$total["error"] = true;
+				$total["error"] = 1;
 				break;
 			}
 			$total["odpracovano"] += $secs - $secs_old;
@@ -178,7 +193,7 @@ function day_totals($year, $month, $day, $employee) {
 		} else if ($row["type"] == "odchod-lekar") {
 			if (!$at_work) {
 				$total["daylog"] .= "odchod k lékaři bez příchodu";
-				$total["error"] = true;
+				$total["error"] = 1;
 				break;
 			}
 			$total["odpracovano"] += $secs - $secs_old;
@@ -186,7 +201,7 @@ function day_totals($year, $month, $day, $employee) {
 			$at_doctor = true;
 		} else {
 			$total["daylog"] .= "neznamý typ průchodu";
-			$total["error"] = true;
+			$total["error"] = 1;
 			break;
 		}
 
@@ -199,7 +214,6 @@ function day_totals($year, $month, $day, $employee) {
 		if ($at_doctor) $total["daylog"] .= " - lékař - ";
 	}
 	pg_free_result($res);
-
 
 	$res = db_query("
 		SELECT id,time
@@ -293,10 +307,48 @@ function day_totals($year, $month, $day, $employee) {
 		$total["plusminus"] = 0;
 	}
 
+	$res = db_query("
+		INSERT INTO cache_day_totals(date,employee,odpracovano,stravenky,diety_id,diety_kc,daylog,plusminus,status_id,status_type,comment_id,comment_text,overtime_id,overtime_time,error)
+		VALUES(
+			'".$str_date."',
+			'".$employee."',
+			'".$total["odpracovano"]."',
+			'".$total["stravenky"]."',
+			'".$total["diety_id"]."',
+			'".$total["diety_kc"]."',
+			'".$total["daylog"]."',
+			'".$total["plusminus"]."',
+			'".$total["status_id"]."',
+			'".$total["status_type"]."',
+			'".$total["comment_id"]."',
+			'".$total["comment_text"]."',
+			'".$total["overtime_id"]."',
+			'".$total["overtime_time"]."',
+			'".$total["error"]."'
+		);");
+	pg_free_result($res);
+
+	//error_log("day_totals(" . $year . "," . $month . "," . $day . "," . $employee . ") end");
 	return $total;
 }
 
-function month_totals($year, $month, $employee, $print) {
+function month_totals($year, $month, $employee) {
+	$res = db_query("
+		SELECT *
+		FROM cache_month_totals
+		WHERE
+			employee='" . $employee . "'
+			AND year='" . $year . "'
+			AND month='" . $month . "'
+	;");
+	$row = pg_fetch_array($res);
+	if ($row) {
+		$total = $row;
+		pg_free_result($res);
+		return $total;
+	}
+
+	error_log("month_totals(" . $year . "," . $month . "," . $employee . ") begin");
 	$total["odpracovano"] = 0;
 	$total["plusminus"] = 0;
 	$total['overtime'] = 0;
@@ -304,21 +356,7 @@ function month_totals($year, $month, $employee, $print) {
 	$total["days_dovolena"] = 0;
 	$total["stravenky"] = 0;
 	$total["diety_kc"] = 0;
-	$total["error"] = false;
-
-	if ($print) {
-		echo "<table class=\"maxwidth\">";
-		echo "<tr>";
-		echo "<th colspan=\"2\">den</th>";
-		echo "<th>průchody</th>";
-		echo "<th>odprac.</th>";
-		echo "<th>+/-</th>";
-		echo "<th>uznaný přesčas</th>";
-		echo "<th>stav</th>";
-		echo "<th>diety/strav.</th>";
-		echo "<th>poznámka</th>";
-		echo "</tr>";
-	}
+	$total["error"] = 0;
 
 	for ($day = 1; checkdate($month, $day, $year); $day++) {
 		$dt = day_totals($year, $month, $day, $employee);
@@ -333,89 +371,123 @@ function month_totals($year, $month, $employee, $print) {
 		$total["stravenky"] += $dt["stravenky"];
 		$total["diety_kc"] += $dt["diety_kc"];
 
-		if ($dt["error"]) $total["error"] = true;
-
-		if ($print) {
-			$str_date = $year . "-" . $month . "-" . $day;
-
-			if (is_workday($year, $month, $day)) {
-				echo "<tr class=\"workday\">";
-			} else {
-				echo "<tr class=\"noworkday\">";
-			}
-
-			echo "<td>" . $day . "</td>";
-			echo "<td>" . weekdayname($year, $month, $day) . "</td>";
-
-			echo $dt["error"]? "<td class=\"error\">" : "<td>";
-			echo $dt["daylog"];
-			if (auth()) {
-				echo " <a href=\"list_actions.php?date=" . $str_date . "&employee=" . $_GET["employee"] . "\">(*)</a>";
-			}
-			echo "</td>";
-
-			echo "<td>" . secs_to_time($dt["odpracovano"]) . "</td>";
-			echo "<td>" . secs_to_time($dt["plusminus"]) . "</td>";
-
-			echo "<td>";
-			echo secs_to_time($dt["overtime_time"]);
-			if (auth()) {
-				if ($dt["overtime_id"]) {
-					echo " <a href=\"form_overtime_edit.php?from_id=" . $dt["overtime_id"] . "&id=" . $dt["overtime_id"] . "\">(*)</a>";
-					echo " <a href=\"form_overtime_delete.php?id=" . $dt["overtime_id"] . "\">(-)</a>";
-				} else {
-					echo " <a href=\"form_overtime_edit.php?date=" . $str_date . "&employee=" . $_GET["employee"] . "&time=" . secs_to_time($dt["plusminus"]) . "\">(+)</a>";
-				}
-			}
-			echo "</td>";
-
-			echo "<td>";
-			echo $dt["status_type"];
-
-			if (strlen($dt["status_type"])) echo "/";
-			if (is_holiday($year, $month, $day)) echo "svátek";
-
-			if (auth()) {
-				if ($dt["status_id"]) {
-					echo " <a href=\"form_day_edit.php?from_id=" . $dt["status_id"] . "&id=" . $dt["status_id"] . "\">(*)</a>";
-					echo " <a href=\"form_day_delete.php?id=" . $dt["status_id"] . "\">(-)</a>";
-				} else {
-					echo " <a href=\"form_day_edit.php?date=" . $str_date . "&employee=" . $_GET["employee"] . "\">(+)</a>";
-				}
-			}
-			echo "</td>";
-
-			echo "<td>";
-			echo $dt["diety_kc"] . "/" . $dt["stravenky"];
-			if (auth()) {
-				if ($dt["diety_id"]) {
-					echo " <a href=\"form_diety_edit.php?from_id=" . $dt["diety_id"] . "&id=" . $dt["diety_id"] . "\">(*)</a>";
-					echo " <a href=\"form_diety_delete.php?id=" . $dt["diety_id"] . "\">(-)</a>";
-				} else {
-					echo " <a href=\"form_diety_edit.php?date=" . $str_date . "&employee=" . $_GET["employee"] . "\">(+)</a>";
-				}
-			}
-			echo "</td>";
-
-			echo "<td>";
-			echo $dt["comment_text"];
-			if (auth()) {
-				if ($dt["comment_id"]) {
-					echo " <a href=\"form_comment_edit.php?from_id=" . $dt["comment_id"] . "&id=" . $dt["comment_id"] . "\">(*)</a>";
-					echo " <a href=\"form_comment_delete.php?id=" . $dt["comment_id"] . "\">(-)</a>";
-				} else {
-					echo " <a href=\"form_comment_edit.php?date=" . $str_date . "&employee=" . $_GET["employee"] . "\">(+)</a>";
-				}
-			}
-			echo "</td>";
-
-			echo "</tr>\n";
-		}
+		if ($dt["error"]) $total["error"] = 1;
 	}
 
-	if ($print) echo "</table>";
+	$res = db_query("
+		INSERT INTO cache_month_totals(year,month,employee,odpracovano,plusminus,overtime,days_nemoc,days_dovolena,stravenky,diety_kc,error)
+		VALUES(
+			'".$year."',
+			'".$month."',
+			'".$employee."',
+			'".$total["odpracovano"]."',
+			'".$total["plusminus"]."',
+			'".$total["overtime"]."',
+			'".$total["days_nemoc"]."',
+			'".$total["days_dovolena"]."',
+			'".$total["stravenky"]."',
+			'".$total["diety_kc"]."',
+			'".$total["error"]."'
+		);");
+	pg_free_result($res);
 
+	error_log("month_totals(" . $year . "," . $month . "," . $employee . ") end");
 	return $total;
+}
+
+function month_totals_print($year, $month, $employee) {
+	echo "<table class=\"maxwidth\">";
+	echo "<tr>";
+	echo "<th colspan=\"2\">den</th>";
+	echo "<th>průchody</th>";
+	echo "<th>odprac.</th>";
+	echo "<th>+/-</th>";
+	echo "<th>uznaný přesčas</th>";
+	echo "<th>stav</th>";
+	echo "<th>diety/strav.</th>";
+	echo "<th>poznámka</th>";
+	echo "</tr>";
+
+	for ($day = 1; checkdate($month, $day, $year); $day++) {
+		$dt = day_totals($year, $month, $day, $employee);
+
+		$str_date = $year . "-" . $month . "-" . $day;
+
+		if (is_workday($year, $month, $day)) {
+			echo "<tr class=\"workday\">";
+		} else {
+			echo "<tr class=\"noworkday\">";
+		}
+
+		echo "<td>" . $day . "</td>";
+		echo "<td>" . weekdayname($year, $month, $day) . "</td>";
+
+		echo $dt["error"] ? "<td class=\"error\">" : "<td>";
+		echo $dt["daylog"];
+		if (auth()) {
+			echo " <a href=\"list_actions.php?date=" . $str_date . "&employee=" . $employee . "\">(*)</a>";
+		}
+		echo "</td>";
+
+		echo "<td>" . secs_to_time($dt["odpracovano"]) . "</td>";
+		echo "<td>" . secs_to_time($dt["plusminus"]) . "</td>";
+
+		echo "<td>";
+		echo secs_to_time($dt["overtime_time"]);
+		if (auth()) {
+			if ($dt["overtime_id"]) {
+				echo " <a href=\"form_overtime_edit.php?from_id=" . $dt["overtime_id"] . "&id=" . $dt["overtime_id"] . "\">(*)</a>";
+				echo " <a href=\"form_overtime_delete.php?id=" . $dt["overtime_id"] . "\">(-)</a>";
+			} else {
+				echo " <a href=\"form_overtime_edit.php?date=" . $str_date . "&employee=" . $employee . "&time=" . secs_to_time($dt["plusminus"]) . "\">(+)</a>";
+			}
+		}
+		echo "</td>";
+
+		echo "<td>";
+		echo $dt["status_type"];
+
+		if (strlen($dt["status_type"])) echo "/";
+		if (is_holiday($year, $month, $day)) echo "svátek";
+
+		if (auth()) {
+			if ($dt["status_id"]) {
+				echo " <a href=\"form_day_edit.php?from_id=" . $dt["status_id"] . "&id=" . $dt["status_id"] . "\">(*)</a>";
+				echo " <a href=\"form_day_delete.php?id=" . $dt["status_id"] . "\">(-)</a>";
+			} else {
+				echo " <a href=\"form_day_edit.php?date=" . $str_date . "&employee=" . $employee . "\">(+)</a>";
+			}
+		}
+		echo "</td>";
+
+		echo "<td>";
+		echo $dt["diety_kc"] . "/" . $dt["stravenky"];
+		if (auth()) {
+			if ($dt["diety_id"]) {
+				echo " <a href=\"form_diety_edit.php?from_id=" . $dt["diety_id"] . "&id=" . $dt["diety_id"] . "\">(*)</a>";
+				echo " <a href=\"form_diety_delete.php?id=" . $dt["diety_id"] . "\">(-)</a>";
+			} else {
+				echo " <a href=\"form_diety_edit.php?date=" . $str_date . "&employee=" . $employee . "\">(+)</a>";
+			}
+		}
+		echo "</td>";
+
+		echo "<td>";
+		echo $dt["comment_text"];
+		if (auth()) {
+			if ($dt["comment_id"]) {
+				echo " <a href=\"form_comment_edit.php?from_id=" . $dt["comment_id"] . "&id=" . $dt["comment_id"] . "\">(*)</a>";
+				echo " <a href=\"form_comment_delete.php?id=" . $dt["comment_id"] . "\">(-)</a>";
+			} else {
+				echo " <a href=\"form_comment_edit.php?date=" . $str_date . "&employee=" . $employee . "\">(+)</a>";
+			}
+		}
+		echo "</td>";
+
+		echo "</tr>\n";
+	}
+
+	echo "</table>";
 }
 
 ?>

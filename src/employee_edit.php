@@ -30,6 +30,8 @@ if (!$_GET["id"]) {
 	;");
 }
 
+db_invalidate_cache_totals($_GET["id"], null);
+
 ?>
 
 <?php include("header.htm"); ?>

@@ -15,7 +15,12 @@ if (!$_GET["id"]) {
 			'".$_GET["employee"]."',
 			'".$_GET["type"]."'
 		);");
+	pg_free_result($res);
 } else {
+	$employee_prev = db_get('actions', 'employee', $_GET['id']);
+	$date_prev = db_get('actions', 'date', $_GET['id']);
+	db_invalidate_cache_totals($employee_prev, $date_prev);
+
 	$res = db_query("
 		UPDATE actions
 		SET
@@ -25,7 +30,10 @@ if (!$_GET["id"]) {
 			type='".$_GET["type"]."'
 		WHERE id=".$_GET["id"]."
 		;");
+	pg_free_result($res);
 }
+
+db_invalidate_cache_totals($_GET["employee"], $_GET["date"]);
 
 ?>
 
@@ -35,7 +43,6 @@ if (!$_GET["id"]) {
 
 if ($res) {
 	echo "V pořádku.";
-
 	handle_goto_body($_GET["goto"]);
 } else {
 	echo "CHYBA!!!";
