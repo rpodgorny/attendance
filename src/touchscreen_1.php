@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="cs" xml:lang="cs">
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta name="googlebot" content="noindex" />
 	<meta http-equiv="refresh" content="300" />
 	<title>
 		Docházkový systém
