@@ -39,13 +39,11 @@ for ($day = 1; checkdate($_GET["month"], $day, $_GET["year"]); $day++) {
 
 	$total += $dt["diety_kc"];
 
-
 	echo "<tr>";
 
 	echo "<td>" . $day . "." . $_GET["month"] . ". " . $_GET["year"] . "</td>";
 	echo "<td>" . $dt["comment_text"] . "</td>";
 	echo "<td>" . $dt["diety_kc"] . "</td>";
-
 
 	echo "</tr>";
 	echo "\n";

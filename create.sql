@@ -98,3 +98,42 @@ CREATE INDEX ON uvazky(employee);
 CREATE INDEX ON uvazky(since);
 CREATE INDEX ON uvazky(till);
 
+CREATE TABLE cache_day_totals(
+	id SERIAL PRIMARY KEY,
+	date DATE,
+	employee INT REFERENCES employees(id),
+	odpracovano INT,
+	stravenky NUMERIC,
+	diety_id INT,
+	diety_kc INT,
+	daylog TEXT,
+	plusminus INT,
+	status_id INT,
+	status_type TEXT,
+	comment_id INT,
+	comment_text TEXT,
+	overtime_id INT,
+	overtime_time INT,
+	error INT
+);
+CREATE INDEX ON cache_day_totals(employee);
+CREATE INDEX ON cache_day_totals(date);
+CREATE INDEX ON cache_day_totals(employee, date);
+
+CREATE TABLE cache_month_totals(
+	id SERIAL PRIMARY KEY,
+	year INT,
+	month INT,
+	employee INT REFERENCES employees(id),
+	odpracovano INT,
+	plusminus INT,
+	overtime INT,
+	days_nemoc INT,
+	days_dovolena INT,
+	stravenky NUMERIC,
+	diety_kc INT,
+	error INT
+);
+CREATE INDEX ON cache_month_totals(employee);
+CREATE INDEX ON cache_month_totals(year, month);
+CREATE INDEX ON cache_month_totals(employee, year, month);

@@ -13,6 +13,9 @@ if (!$_GET["id"]) {
 			'".$_GET["days_lastyear"]."'
 		);");
 } else {
+	$employee_prev = db_get('dovolene', 'employee', $_GET['id']);
+	db_invalidate_cache_totals($employee_prev, null);
+
 	$res = db_query("
 		UPDATE dovolene
 		SET
@@ -23,6 +26,8 @@ if (!$_GET["id"]) {
 		WHERE id='".$_GET["id"]."'
 		;");
 }
+
+db_invalidate_cache_totals($_GET["employee"], null);
 
 ?>
 

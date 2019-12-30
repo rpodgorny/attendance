@@ -12,6 +12,10 @@ if (!$_GET["id"]) {
 			'".$_GET["time"]."'
 		);");
 } else {
+	$employee_prev = db_get('overtimes', 'employee', $_GET['id']);
+	$date_prev = db_get('overtimes', 'date', $_GET['id']);
+	db_invalidate_cache_totals($employee_prev, $date_prev);
+
 	$res = db_query("
 		UPDATE overtimes
 		SET
@@ -21,6 +25,9 @@ if (!$_GET["id"]) {
 		WHERE id='".$_GET["id"]."'
 		;");
 }
+
+db_invalidate_cache_totals($_GET["employee"], $_GET["date"]);
+
 ?>
 
 <?php include("header.htm"); ?>

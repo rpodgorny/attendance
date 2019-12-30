@@ -3,6 +3,9 @@
 
 <?php
 
+$employee = db_get('uvazky', 'employee', $_GET['id']);
+db_invalidate_cache_totals($employee, null);
+
 $res = db_query("DELETE FROM uvazky WHERE id='" . $_GET["id"] . "';");
 
 ?>

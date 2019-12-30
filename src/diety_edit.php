@@ -12,6 +12,9 @@ if (!$_GET["id"]) {
 			'".$_GET["amount"]."'
 		);");
 } else {
+	$date_prev = db_get('actions', 'date', $_GET['id']);
+	db_invalidate_cache_totals($_GET["employee"], $date_prev);
+
 	$res = db_query("
 		UPDATE diety
 		SET
@@ -21,6 +24,8 @@ if (!$_GET["id"]) {
 		WHERE id='".$_GET["id"]."'
 		;");
 }
+
+db_invalidate_cache_totals($_GET["employee"], $_GET["date"]);
 
 ?>
 
