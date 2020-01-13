@@ -4,7 +4,9 @@
 <?php
 
 $res = db_query("DELETE FROM cache_day_totals;");
+pg_free_result($res);
 $res = db_query("DELETE FROM cache_month_totals;");
+pg_free_result($res);
 
 ?>
 
