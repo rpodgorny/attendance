@@ -307,26 +307,29 @@ function day_totals($year, $month, $day, $employee) {
 		$total["plusminus"] = 0;
 	}
 
-	$res = db_query("
-		INSERT INTO cache_day_totals(date,employee,odpracovano,stravenky,diety_id,diety_kc,daylog,plusminus,status_id,status_type,comment_id,comment_text,overtime_id,overtime_time,error)
-		VALUES(
-			'".$str_date."',
-			'".$employee."',
-			'".$total["odpracovano"]."',
-			'".$total["stravenky"]."',
-			'".$total["diety_id"]."',
-			'".$total["diety_kc"]."',
-			'".$total["daylog"]."',
-			'".$total["plusminus"]."',
-			'".$total["status_id"]."',
-			'".$total["status_type"]."',
-			'".$total["comment_id"]."',
-			'".$total["comment_text"]."',
-			'".$total["overtime_id"]."',
-			'".$total["overtime_time"]."',
-			'".$total["error"]."'
-		);");
-	pg_free_result($res);
+	// don't cache days in the future
+	if (mktime() < mktime(0, 0, 0, $month, $day, $year)) {
+		$res = db_query("
+			INSERT INTO cache_day_totals(date,employee,odpracovano,stravenky,diety_id,diety_kc,daylog,plusminus,status_id,status_type,comment_id,comment_text,overtime_id,overtime_time,error)
+			VALUES(
+				'".$str_date."',
+				'".$employee."',
+				'".$total["odpracovano"]."',
+				'".$total["stravenky"]."',
+				'".$total["diety_id"]."',
+				'".$total["diety_kc"]."',
+				'".$total["daylog"]."',
+				'".$total["plusminus"]."',
+				'".$total["status_id"]."',
+				'".$total["status_type"]."',
+				'".$total["comment_id"]."',
+				'".$total["comment_text"]."',
+				'".$total["overtime_id"]."',
+				'".$total["overtime_time"]."',
+				'".$total["error"]."'
+			);");
+		pg_free_result($res);
+	}
 
 	//error_log("day_totals(" . $year . "," . $month . "," . $day . "," . $employee . ") end");
 	return $total;
