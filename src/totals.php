@@ -81,7 +81,9 @@ function day_totals($year, $month, $day, $employee) {
 			if ($at_cesta_mimopraha) {
 				$total["odpracovano"] += $secs - $secs_old;
 				if ($secs - $secs_old > 18*60*60) {
-					if ($year >= 2020) {
+					if ($year >= 2022) {
+						$total["diety_kc"] = 250;
+					} elseif ($year >= 2020) {
 						$total["diety_kc"] = 230;
 					} elseif ($year >= 2019) {
 						$total["diety_kc"] = 195;
@@ -103,7 +105,9 @@ function day_totals($year, $month, $day, $employee) {
 						$total["diety_kc"] = 150;
 					}
 				} else if ($secs - $secs_old > 12*60*60) {
-					if ($year >= 2020) {
+					if ($year >= 2022) {
+						$total["diety_kc"] = 160;
+					} elseif ($year >= 2020) {
 						$total["diety_kc"] = 150;
 					} elseif ($year >= 2019) {
 						$total["diety_kc"] = 124;
@@ -125,7 +129,9 @@ function day_totals($year, $month, $day, $employee) {
 						$total["diety_kc"] = 96;
 					}
 				} else if ($secs - $secs_old > 5*60*60) {
-					if ($year >= 2020) {
+					if ($year >= 2022) {
+						$total["diety_kc"] = 110;
+					} elseif ($year >= 2020) {
 						$total["diety_kc"] = 100;
 					} elseif ($year >= 2019) {
 						$total["diety_kc"] = 82;
