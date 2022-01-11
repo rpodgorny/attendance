@@ -1,4 +1,4 @@
-FROM php:apache
+FROM php:7.4-apache
 RUN mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
 RUN echo "date.timezone='Europe/Prague'" >>$PHP_INI_DIR/php.ini
 #RUN pecl install pdo_pgsql \
