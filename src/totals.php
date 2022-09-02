@@ -66,7 +66,9 @@ function day_totals($year, $month, $day, $employee) {
 		&& !$at_cesta_praha
 		&& !$at_cesta_mimopraha
 		&& !$at_doctor
-		&& strlen($total["daylog"])) $total["daylog"] .= " - nic - ";
+		&& strlen($total["daylog"])) {
+			$total["daylog"] .= " - nic - ";
+		}
 
 		$secs = datetime_to_secs($row["time"]);
 
