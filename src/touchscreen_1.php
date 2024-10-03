@@ -7,6 +7,7 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 	<meta name="googlebot" content="noindex" />
 	<meta http-equiv="refresh" content="300" />
+	<link rel="manifest" href="manifest.json">
 	<title>
 		Docházkový systém
 	</title>
