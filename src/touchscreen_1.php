@@ -16,14 +16,6 @@
 
 <body>
 
-<div id="admin-link">
-<a href="admin.php">admin</a>
-</div>
-
-<p>
-Dobrý den, vítejte v docházkovém systému firmy Asterix a.s. Vyberte prosím své jméno z následujícího seznamu:
-</p>
-
 <p>
 <ul class="buttons">
 <?php
@@ -102,6 +94,10 @@ echo $row["name"] . ", " . $row["date"] . " " . $row["time"] . ", " . $row["type
 
 ?>
 </p>
+
+<div id="admin-link">
+<a href="admin.php">admin</a>
+</div>
 
 </body>
 

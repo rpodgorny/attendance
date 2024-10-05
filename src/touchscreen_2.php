@@ -25,8 +25,6 @@ echo $employeename;
 ?>
 </p>
 
-<p>Vyberte prosím typ akce:</p>
-
 <p>
 <div>
 <ul class="buttons">
