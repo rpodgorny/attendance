@@ -1,5 +1,6 @@
 <?php require_once("common.php"); ?>
 <?php require_once("sql.php"); ?>
+<?php require_once("version.php"); ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="cs" xml:lang="cs">
@@ -95,8 +96,12 @@ echo $row["name"] . ", " . $row["date"] . " " . $row["time"] . ", " . $row["type
 ?>
 </p>
 
-<div id="admin-link">
-<a href="admin.php">admin</a>
+<div style="display: flex; flex-direction: row; justify-content: space-between">
+	<div>v<?php echo get_version() ?></div>
+
+	<div id="admin-link">
+		<a href="admin.php">admin</a>
+	</div>
 </div>
 
 </body>
