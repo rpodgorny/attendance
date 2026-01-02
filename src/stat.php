@@ -94,11 +94,11 @@ $dovolena_zminula = db_get_condition("dovolene", "days_lastyear", "employee=".$_
 	</tr>
 	<tr>
 		<th>+/- tento měsíc</th>
-		<td><?php echo secs_to_time($cur_tots["plusminus"]); ?></td>
+		<td><?php echo secs_to_time($cur_tots["plusminus"] - $cur_tots["overtime"]); ?></td>
 	</tr>
 	<tr>
 		<th>+/- celkem</th>
-		<td><?php echo secs_to_time($prev_tots["plusminus"] + $cur_tots["plusminus"]); ?></td>
+		<td><?php echo secs_to_time($prev_tots["plusminus"] + $cur_tots["plusminus"] - $cur_tots["overtime"]); ?></td>
 	</tr>
 </table>
 
