@@ -336,8 +336,9 @@ function day_totals($year, $month, $day, $employee) {
 	&& $total["status_type"] != "neplacene_volno") {
 		$total["plusminus"] -= $uvazek*60*60;
 
-		if (!$total["diety_id"] && $total["diety_kc"] == 0)
+		if (!$total["diety_id"] && $total["diety_kc"] == 0) {
 			$total["stravenky"] += $ratio;
+		}
 	}
 
 	// We don't want negative plusminus for days in the future
