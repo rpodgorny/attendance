@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION["is_human"]) || $_SESSION["is_human"] !== true) {
+	header("Location: touchscreen_gate.php");
+	exit;
+}
+?>
 <?php require_once("sql.php"); ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

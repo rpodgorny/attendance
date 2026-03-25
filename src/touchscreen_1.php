@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION["is_human"]) || $_SESSION["is_human"] !== true) {
+	header("Location: touchscreen_gate.php");
+	exit;
+}
+?>
 <?php require_once("common.php"); ?>
 <?php require_once("sql.php"); ?>
 <?php require_once("version.php"); ?>
