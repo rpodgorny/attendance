@@ -9,3 +9,5 @@ RUN apt-get update \
     && docker-php-ext-enable pgsql
 #RUN sed -e "s/;extension=pgsql/extension=pgsql/g" -i "$PHP_INI_DIR/php.ini"
 COPY src/ /var/www/html/
+# base image makes docroot 1777; sticky bit + fs.protected_symlinks stops apache following the index.php symlink
+RUN chmod 0755 /var/www/html
