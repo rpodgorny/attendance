@@ -348,12 +348,12 @@ function day_totals($year, $month, $day, $employee) {
 	}
 
 	// We don't want negative plusminus for days in the future
-	if (mktime() < mktime(0, 0, 0, $month, $day, $year)) {
+	if (time() < mktime(0, 0, 0, $month, $day, $year)) {
 		$total["plusminus"] = 0;
 	}
 
 	// don't cache days in the future
-	if (mktime() < mktime(0, 0, 0, $month, $day, $year)) {
+	if (time() < mktime(0, 0, 0, $month, $day, $year)) {
 		$res = db_query("
 			INSERT INTO cache_day_totals(date,employee,odpracovano,stravenky,diety_id,diety_kc,daylog,plusminus,status_id,status_type,comment_id,comment_text,overtime_id,overtime_time,error)
 			VALUES(

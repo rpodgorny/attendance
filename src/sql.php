@@ -12,8 +12,9 @@ function db_query($query) {
 }
 
 function db_get($table, $col, $id) {
-	$val = "";
+	$val = null;
 	$res = db_query("SELECT " . $col . " FROM " . $table . " WHERE id='" . $id . "';");
+	if (!$res) return $val;
 	$row = pg_fetch_array($res);
 	if ($row) $val = $row[$col];
 	pg_free_result($res);
@@ -21,8 +22,9 @@ function db_get($table, $col, $id) {
 }
 
 function db_get_condition($table, $col, $cond) {
-	$val = "";
+	$val = null;
 	$res = db_query("SELECT " . $col . " FROM " . $table . " WHERE " . $cond . ";");
+	if (!$res) return $val;
 	$row = pg_fetch_array($res);
 	if ($row) $val = $row[$col];
 	pg_free_result($res);
@@ -30,10 +32,11 @@ function db_get_condition($table, $col, $cond) {
 }
 
 function db_get_many($table, $col, $where = "", $order = "") {
-	$ret = "";
+	$ret = array();
 	if (strlen($where) > 0) $where = " WHERE " . $where;
 	if (strlen($order) > 0) $order = " ORDER BY " . $order;
 	$res = db_query("SELECT " . $col . " FROM " . $table . $where . $order . ";");
+	if (!$res) return $ret;
 	$i = 0;
 	while ($row = pg_fetch_array($res)) {
 		$ret[$i++] = $row[$col];
@@ -96,7 +99,7 @@ function db_invalidate_cache_totals($employee, $date) {
 				employee='".$employee."'
 				AND date='".$date."'
 			;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 
 		$parsed = date_parse($date);
 		$res = db_query("
@@ -106,25 +109,25 @@ function db_invalidate_cache_totals($employee, $date) {
 				AND year='".$parsed['year']."'
 				AND month='".$parsed['month']."'
 			;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 	} elseif ($employee) {
 		$res = db_query("
 			DELETE FROM cache_day_totals
 			WHERE employee='".$employee."'
 			;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 
 		$res = db_query("
 			DELETE FROM cache_month_totals
 			WHERE employee='".$employee."'
 			;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 	} elseif ($date) {
 		$res = db_query("
 			DELETE FROM cache_day_totals
 			WHERE date='".$date."'
 			;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 
 		$parsed = date_parse($date);
 		$res = db_query("
@@ -133,13 +136,13 @@ function db_invalidate_cache_totals($employee, $date) {
 				year='".$parsed['year']."'
 				AND month='".$parsed['month']."'
 			;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 	} else {
 		$res = db_query("DELETE FROM cache_day_totals;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 
 		$res = db_query("DELETE FROM cache_month_totals;");
-		pg_free_result($res);
+		if ($res) pg_free_result($res);
 	}
 	return true;
 }
